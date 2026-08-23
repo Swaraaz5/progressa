@@ -2,24 +2,38 @@
 
   <div class="login-card">
 
+    <!-- Brand -->
     <div class="brand">
+
       <div class="brand-mark">P</div>
 
       <div>
         <h1>Progressa</h1>
         <p>Track. Learn. Grow.</p>
       </div>
+
     </div>
 
+    <!-- Welcome -->
     <div class="welcome-section">
+
       <h2>Welcome back</h2>
+
       <p>Continue your learning journey.</p>
+
     </div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <!-- Login Form -->
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onLogin()">
 
+      <!-- Email -->
       <div class="form-group">
-        <label for="email">Email address</label>
+
+        <label for="email">
+          Email address
+        </label>
 
         <input
           id="email"
@@ -27,8 +41,11 @@
           formControlName="email"
           placeholder="you@example.com"
         />
-        @if (loginForm.controls.email.touched &&
-        loginForm.controls.email.invalid) {
+
+        @if (
+        loginForm.controls.email.touched &&
+        loginForm.controls.email.invalid
+        ) {
 
         <small class="error-message">
 
@@ -41,20 +58,49 @@
           }
 
         </small>
+
         }
+
       </div>
 
+      <!-- Password -->
       <div class="form-group">
-        <label for="password">Password</label>
 
-        <input
-          id="password"
-          type="password"
-          formControlName="password"
-          placeholder="Enter your password"
-        />
-        @if (loginForm.controls.password.touched &&
-        loginForm.controls.password.invalid) {
+        <label for="password">
+          Password
+        </label>
+
+        <div class="password-wrapper">
+
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="
+              showPassword ? 'Hide password' : 'Show password'
+            ">
+
+            @if (showPassword) {
+            Hide
+            } @else {
+            Show
+            }
+
+          </button>
+
+        </div>
+
+        @if (
+        loginForm.controls.password.touched &&
+        loginForm.controls.password.invalid
+        ) {
 
         <small class="error-message">
 
@@ -67,39 +113,91 @@
           }
 
         </small>
+
         }
+
       </div>
 
+      <!-- Remember Me / Forgot Password -->
       <div class="form-options">
 
         <label class="remember">
+
           <input
             type="checkbox"
             formControlName="rememberMe"
           />
 
-          <span>Remember me</span>
+          <span>
+            Remember me
+          </span>
+
         </label>
 
         <button
           type="button"
           class="forgot-password">
+
           Forgot password?
+
         </button>
 
       </div>
 
+      <!-- Login Error -->
+      @if (loginError) {
+
+      <div class="login-error">
+
+          <span class="error-icon">
+            !
+          </span>
+
+        <span>
+            {{ loginError }}
+          </span>
+
+      </div>
+
+      }
+
+      <!-- Login Button -->
       <button
         type="submit"
-        class="login-button">
-        Login
+        class="login-button"
+        [disabled]="isLoading">
+
+        @if (isLoading) {
+
+        <span class="spinner"></span>
+
+        <span>
+            Signing in...
+          </span>
+
+        } @else {
+
+        <span>
+            Login
+          </span>
+
+        }
+
       </button>
 
     </form>
 
+    <!-- Footer -->
     <div class="login-footer">
-      <span>New to Progressa?</span>
-      <button type="button">Create an account</button>
+
+      <span>
+        New to Progressa?
+      </span>
+
+      <button type="button">
+        Create an account
+      </button>
+
     </div>
 
   </div>

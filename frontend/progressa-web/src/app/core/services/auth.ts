@@ -31,3 +31,5 @@ export class Auth {
     return this.isAuthenticated;
   }
 }
+
+Day 3 edited

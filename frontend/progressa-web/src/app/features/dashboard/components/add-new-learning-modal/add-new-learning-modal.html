@@ -1,0 +1,312 @@
+<div class="modal-backdrop">
+
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="add-learning-title">
+
+    <!-- Header -->
+
+    <div class="modal-header">
+
+      <div>
+
+        <span class="modal-eyebrow">
+          Outside Your Plan
+        </span>
+
+        <h2 id="add-learning-title">
+          Add New Learning
+        </h2>
+
+        <p>
+          Track something you learned outside your assigned topics.
+        </p>
+
+      </div>
+
+      <button
+        type="button"
+        class="close-button"
+        aria-label="Close"
+        (click)="close()">
+
+        ×
+
+      </button>
+
+    </div>
+
+
+    <!-- Form -->
+
+    <form
+      [formGroup]="learningForm"
+      (ngSubmit)="submit()">
+
+      <div class="form-grid">
+
+
+        <!-- Subject -->
+
+        <div class="form-group">
+
+          <label for="subject">
+            Subject
+          </label>
+
+          <input
+            id="subject"
+            type="text"
+            formControlName="subject"
+            placeholder="e.g. Python, Docker, AWS"
+          />
+
+          @if (
+          learningForm.controls.subject.touched &&
+          learningForm.controls.subject.invalid
+          ) {
+
+          <small class="error">
+            Subject is required.
+          </small>
+
+          }
+
+        </div>
+
+
+        <!-- Topic -->
+
+        <div class="form-group">
+
+          <label for="topic">
+            Topic
+          </label>
+
+          <input
+            id="topic"
+            type="text"
+            formControlName="topic"
+            placeholder="e.g. Docker Containers"
+          />
+
+          @if (
+          learningForm.controls.topic.touched &&
+          learningForm.controls.topic.invalid
+          ) {
+
+          <small class="error">
+            Topic is required.
+          </small>
+
+          }
+
+        </div>
+
+
+        <!-- Subtopic -->
+
+        <div class="form-group full-width">
+
+          <label for="subtopic">
+
+            Subtopic
+
+            <span class="optional">
+              Optional
+            </span>
+
+          </label>
+
+          <input
+            id="subtopic"
+            type="text"
+            formControlName="subtopic"
+            placeholder="e.g. Docker Compose"
+          />
+
+        </div>
+
+
+        <!-- Learning Type -->
+
+        <div class="form-group">
+
+          <label for="learningType">
+            Learning Type
+          </label>
+
+          <select
+            id="learningType"
+            formControlName="learningType">
+
+            <option value="Self Learning">
+              Self Learning
+            </option>
+
+            <option value="Course">
+              Course
+            </option>
+
+            <option value="Article">
+              Article
+            </option>
+
+            <option value="Video">
+              Video
+            </option>
+
+            <option value="Documentation">
+              Documentation
+            </option>
+
+            <option value="Practice">
+              Practice
+            </option>
+
+            <option value="Other">
+              Other
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- Status -->
+
+        <div class="form-group">
+
+          <label for="status">
+            Status
+          </label>
+
+          <select
+            id="status"
+            formControlName="status">
+
+            <option value="Completed">
+              Completed
+            </option>
+
+            <option value="In Progress">
+              In Progress
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- Start -->
+
+        <div class="form-group">
+
+          <label for="startDateTime">
+            Start Date & Time
+          </label>
+
+          <input
+            id="startDateTime"
+            type="datetime-local"
+            formControlName="startDateTime"
+          />
+
+          @if (
+          learningForm.controls.startDateTime.touched &&
+          learningForm.controls.startDateTime.invalid
+          ) {
+
+          <small class="error">
+            Start date and time is required.
+          </small>
+
+          }
+
+        </div>
+
+
+        <!-- End -->
+
+        <div class="form-group">
+
+          <label for="endDateTime">
+            End Date & Time
+          </label>
+
+          <input
+            id="endDateTime"
+            type="datetime-local"
+            formControlName="endDateTime"
+          />
+
+          @if (
+          learningForm.controls.endDateTime.touched &&
+          learningForm.controls.endDateTime.invalid
+          ) {
+
+          <small class="error">
+            End date and time is required.
+          </small>
+
+          }
+
+        </div>
+
+
+        <!-- Notes -->
+
+        <div class="form-group full-width">
+
+          <label for="notes">
+
+            Notes
+
+            <span class="optional">
+              Optional
+            </span>
+
+          </label>
+
+          <textarea
+            id="notes"
+            formControlName="notes"
+            rows="4"
+            placeholder="What did you learn? Add useful notes or key takeaways...">
+          </textarea>
+
+        </div>
+
+      </div>
+
+
+      <!-- Footer -->
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="close()">
+
+          Cancel
+
+        </button>
+
+        <button
+          type="submit"
+          class="submit-button">
+
+          Add Learning
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

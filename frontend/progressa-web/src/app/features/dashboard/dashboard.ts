@@ -5,6 +5,7 @@ import {
 } from '@angular/router';
 
 import { UpdateProgressModal } from './components/update-progress-modal/update-progress-modal';
+import { AddNewLearningModal } from './components/add-new-learning-modal/add-new-learning-modal';
 
 interface StatCard {
   icon: string;
@@ -43,7 +44,8 @@ interface Reminder {
   imports: [
     RouterLink,
     RouterLinkActive,
-    UpdateProgressModal
+    UpdateProgressModal,
+    AddNewLearningModal
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
@@ -53,6 +55,7 @@ export class Dashboard {
   activePeriod: 'Daily' | 'Weekly' | 'Monthly' = 'Weekly';
 
   showUpdateProgressModal = false;
+  showAddNewLearningModal = false;
 
 
   // =========================
@@ -274,6 +277,31 @@ export class Dashboard {
 
     this.showUpdateProgressModal = false;
   }
+
+
+openAddNewLearning(): void {
+  this.showAddNewLearningModal = true;
+}
+
+closeAddNewLearning(): void {
+  this.showAddNewLearningModal = false;
+}
+
+handleNewLearning(data: {
+  subject: string;
+  topic: string;
+  subtopic: string;
+  learningType: string;
+  status: string;
+  startDateTime: string;
+  endDateTime: string;
+  notes: string;
+}): void {
+
+  console.log('New learning:', data);
+
+  this.showAddNewLearningModal = false;
+}
 
 
   // =========================

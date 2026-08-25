@@ -300,7 +300,8 @@
 
           <button
             type="button"
-            class="quick-action secondary">
+            class="quick-action secondary"
+            (click)="openAddNewLearning()">
 
             <span class="quick-action-icon">
               +
@@ -754,6 +755,15 @@
     (closed)="closeUpdateProgress()"
     (submitted)="handleProgressUpdate($event)">
   </app-update-progress-modal>
+
+  }
+
+  @if (showAddNewLearningModal) {
+
+  <app-add-new-learning-modal
+    (closed)="closeAddNewLearning()"
+    (submitted)="handleNewLearning($event)">
+  </app-add-new-learning-modal>
 
   }
 

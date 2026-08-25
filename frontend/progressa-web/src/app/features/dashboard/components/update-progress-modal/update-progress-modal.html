@@ -1,0 +1,313 @@
+<div class="modal-backdrop">
+
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="update-progress-title">
+
+    <!-- Header -->
+
+    <div class="modal-header">
+
+      <div>
+        <span class="modal-eyebrow">
+          Learning Progress
+        </span>
+
+        <h2 id="update-progress-title">
+          Update Progress
+        </h2>
+
+        <p>
+          Record the progress you've made on your assigned learning.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="close-button"
+        aria-label="Close"
+        (click)="close()">
+
+        ×
+
+      </button>
+
+    </div>
+
+
+    <!-- Form -->
+
+    <form
+      [formGroup]="progressForm"
+      (ngSubmit)="submit()">
+
+      <div class="form-grid">
+
+        <!-- Subject -->
+
+        <div class="form-group">
+
+          <label for="subject">
+            Subject
+          </label>
+
+          <select
+            id="subject"
+            formControlName="subject">
+
+            <option value="" disabled>
+              Select subject
+            </option>
+
+            <option value="Java">
+              Java
+            </option>
+
+            <option value="JavaScript">
+              JavaScript
+            </option>
+
+            <option value="Angular">
+              Angular
+            </option>
+
+            <option value="Kafka">
+              Kafka
+            </option>
+
+          </select>
+
+          @if (
+          progressForm.controls.subject.touched &&
+          progressForm.controls.subject.invalid
+          ) {
+          <small class="error">
+            Subject is required.
+          </small>
+          }
+
+        </div>
+
+
+        <!-- Topic -->
+
+        <div class="form-group">
+
+          <label for="topic">
+            Topic
+          </label>
+
+          <select
+            id="topic"
+            formControlName="topic">
+
+            <option value="" disabled>
+              Select topic
+            </option>
+
+            <option value="Java Fundamentals">
+              Java Fundamentals
+            </option>
+
+            <option value="Data Structures">
+              Data Structures
+            </option>
+
+            <option value="Spring Boot">
+              Spring Boot
+            </option>
+
+            <option value="Collections">
+              Collections
+            </option>
+
+          </select>
+
+          @if (
+          progressForm.controls.topic.touched &&
+          progressForm.controls.topic.invalid
+          ) {
+          <small class="error">
+            Topic is required.
+          </small>
+          }
+
+        </div>
+
+
+        <!-- Subtopic -->
+
+        <div class="form-group full-width">
+
+          <label for="subtopic">
+            Subtopic
+          </label>
+
+          <select
+            id="subtopic"
+            formControlName="subtopic">
+
+            <option value="" disabled>
+              Select subtopic
+            </option>
+
+            <option value="Data Types">
+              Data Types
+            </option>
+
+            <option value="Variables">
+              Variables
+            </option>
+
+            <option value="Methods">
+              Methods
+            </option>
+
+            <option value="Arrays">
+              Arrays
+            </option>
+
+          </select>
+
+          @if (
+          progressForm.controls.subtopic.touched &&
+          progressForm.controls.subtopic.invalid
+          ) {
+          <small class="error">
+            Subtopic is required.
+          </small>
+          }
+
+        </div>
+
+
+        <!-- Status -->
+
+        <div class="form-group">
+
+          <label for="status">
+            Status
+          </label>
+
+          <select
+            id="status"
+            formControlName="status">
+
+            <option value="Completed">
+              Completed
+            </option>
+
+            <option value="In Progress">
+              In Progress
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- Start -->
+
+        <div class="form-group">
+
+          <label for="startDateTime">
+            Start Date & Time
+          </label>
+
+          <input
+            id="startDateTime"
+            type="datetime-local"
+            formControlName="startDateTime"
+          />
+
+          @if (
+          progressForm.controls.startDateTime.touched &&
+          progressForm.controls.startDateTime.invalid
+          ) {
+          <small class="error">
+            Start date and time is required.
+          </small>
+          }
+
+        </div>
+
+
+        <!-- End -->
+
+        <div class="form-group">
+
+          <label for="endDateTime">
+            End Date & Time
+          </label>
+
+          <input
+            id="endDateTime"
+            type="datetime-local"
+            formControlName="endDateTime"
+          />
+
+          @if (
+          progressForm.controls.endDateTime.touched &&
+          progressForm.controls.endDateTime.invalid
+          ) {
+          <small class="error">
+            End date and time is required.
+          </small>
+          }
+
+        </div>
+
+
+        <!-- Notes -->
+
+        <div class="form-group full-width">
+
+          <label for="notes">
+            Notes
+            <span class="optional">
+              Optional
+            </span>
+          </label>
+
+          <textarea
+            id="notes"
+            formControlName="notes"
+            rows="4"
+            placeholder="Add notes about what you learned...">
+          </textarea>
+
+        </div>
+
+      </div>
+
+
+      <!-- Footer -->
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="close()">
+
+          Cancel
+
+        </button>
+
+        <button
+          type="submit"
+          class="submit-button">
+
+          Update Progress
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

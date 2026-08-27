@@ -31,4 +31,3 @@ export class Auth {
     return this.isAuthenticated;
   }
 }
-

@@ -3,11 +3,20 @@ import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
 
+  // ==========================================
+  // DEFAULT
+  // ==========================================
+
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
   },
+
+
+  // ==========================================
+  // LOGIN
+  // ==========================================
 
   {
     path: 'login',
@@ -17,14 +26,25 @@ export const routes: Routes = [
       )
   },
 
+
+  // ==========================================
+  // AUTHENTICATED LAYOUT
+  // ==========================================
+
   {
     path: '',
     canActivate: [authGuard],
+
     loadComponent: () =>
       import('./shared/components/layout/layout').then(
         m => m.Layout
       ),
+
     children: [
+
+      // ========================================
+      // DASHBOARD
+      // ========================================
 
       {
         path: 'dashboard',
@@ -34,29 +54,76 @@ export const routes: Routes = [
           )
       },
 
+
+      // ========================================
+      // SUBJECTS
+      // ========================================
+
       {
-        path: 'topics',
+        path: 'subjects',
         loadComponent: () =>
           import('./features/topics/subjects/subjects').then(
             m => m.Subjects
           )
       },
 
+
+      // ========================================
+      // ADD SUBJECT
+      // ========================================
+
       {
-        path: 'topics/:subjectId',
+        path: 'subjects/add',
         loadComponent: () =>
-          import('./features/topics/topic-list/topic-list').then(
+          import(
+            './features/topics/subjects/add-subject/add-subject'
+          ).then(
+            m => m.AddSubject
+          )
+      },
+
+
+      // ========================================
+      // TOPICS
+      // ========================================
+      // Disabled for now.
+      // We will enable this after Add Subject
+      // is completely finished.
+
+
+      {
+        path: 'subjects/:subjectId',
+        loadComponent: () =>
+          import(
+            './features/topics/topic-list/topic-list'
+          ).then(
             m => m.TopicList
           )
       },
 
+
+
+      // ========================================
+      // SUBTOPICS
+      // ========================================
+      // Disabled for now.
+
+      /*
       {
-        path: 'topics/:subjectId/:topicId',
+        path: 'subjects/:subjectId/:topicId',
         loadComponent: () =>
-          import('./features/topics/subtopic-list/subtopic-list').then(
+          import(
+            './features/topics/subtopic-list/subtopic-list'
+          ).then(
             m => m.SubtopicList
           )
       },
+      */
+
+
+      // ========================================
+      // PLANS
+      // ========================================
 
       {
         path: 'plans',
@@ -65,6 +132,11 @@ export const routes: Routes = [
             m => m.Plans
           )
       },
+
+
+      // ========================================
+      // PROGRESS
+      // ========================================
 
       {
         path: 'progress',
@@ -76,6 +148,11 @@ export const routes: Routes = [
 
     ]
   },
+
+
+  // ==========================================
+  // FALLBACK
+  // ==========================================
 
   {
     path: '**',

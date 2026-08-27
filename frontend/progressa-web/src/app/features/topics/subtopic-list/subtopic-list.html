@@ -1,1 +1,237 @@
-<p>subtopic-list works!</p>
+<div class="subtopics-page">
+
+  <header class="page-header">
+
+    <div class="header-content">
+
+      <div>
+
+        <div class="breadcrumb">
+
+          <button
+            type="button"
+            (click)="goToSubjects()">
+            Subjects
+          </button>
+
+          <span>/</span>
+
+          <button
+            type="button"
+            (click)="goToTopics()">
+            {{ subjectName }}
+          </button>
+
+          <span>/</span>
+
+          <strong>
+            {{ topicName }}
+          </strong>
+
+        </div>
+
+
+        <h1>
+          {{ topicName }}
+        </h1>
+
+        <p>
+          Break this topic into smaller concepts and track each one.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="add-subtopic-button"
+        (click)="addSubtopic()">
+
+        <span>+</span>
+
+        Add Subtopic
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <section class="progress-summary">
+
+    <div class="summary-information">
+
+      <div class="summary-icon">
+        ✓
+      </div>
+
+      <div>
+
+        <span>
+          Topic Progress
+        </span>
+
+        <strong>
+          {{ completedCount }} of {{ subtopics.length }} completed
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="summary-progress">
+
+      <div class="progress-header">
+
+        <span>
+          {{ completionPercentage }}%
+        </span>
+
+      </div>
+
+      <div class="progress-track">
+
+        <div
+          class="progress-fill"
+          [style.width.%]="completionPercentage">
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="toolbar">
+
+    <div class="search-wrapper">
+
+      <span class="search-icon">
+        ⌕
+      </span>
+
+      <input
+        type="text"
+        placeholder="Search subtopics..."
+        (input)="onSearch($event)"
+      />
+
+    </div>
+
+
+    <div class="subtopic-count">
+
+      <strong>
+        {{ filteredSubtopics.length }}
+      </strong>
+
+      subtopics
+
+    </div>
+
+  </section>
+
+
+  @if (filteredSubtopics.length > 0) {
+
+  <section class="subtopics-list">
+
+    @for (
+    subtopic of filteredSubtopics;
+    track subtopic.id
+    ) {
+
+    <article
+      class="subtopic-card"
+      [class.completed]="subtopic.completed">
+
+      <button
+        type="button"
+        class="completion-checkbox"
+        [class.checked]="subtopic.completed"
+        (click)="toggleCompleted(subtopic, $event)"
+        [attr.aria-label]="
+              subtopic.completed
+                ? 'Mark incomplete'
+                : 'Mark completed'
+            ">
+
+        @if (subtopic.completed) {
+        ✓
+        }
+
+      </button>
+
+
+      <div class="subtopic-number">
+        {{ subtopic.id }}
+      </div>
+
+
+      <div class="subtopic-content">
+
+        <h2>
+          {{ subtopic.name }}
+        </h2>
+
+        <p>
+          {{ subtopic.description }}
+        </p>
+
+      </div>
+
+
+      <div class="subtopic-actions">
+
+        <button
+          type="button"
+          class="icon-button"
+          title="Edit"
+          (click)="editSubtopic(subtopic, $event)">
+
+          ✎
+
+        </button>
+
+        <button
+          type="button"
+          class="icon-button delete"
+          title="Delete"
+          (click)="deleteSubtopic(subtopic, $event)">
+
+          ×
+
+        </button>
+
+      </div>
+
+    </article>
+
+    }
+
+  </section>
+
+  } @else {
+
+  <section class="empty-state">
+
+    <div class="empty-icon">
+      ⌕
+    </div>
+
+    <h2>
+      No subtopics found
+    </h2>
+
+    <p>
+      Try a different search term.
+    </p>
+
+  </section>
+
+  }
+
+</div>

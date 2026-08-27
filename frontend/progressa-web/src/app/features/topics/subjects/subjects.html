@@ -1,201 +1,226 @@
-<div class="topics-page">
+<div class="subjects-page">
 
   <header class="page-header">
 
-    <div>
-      <h1>Topics</h1>
+    <div class="header-content">
 
-      <p>
-        Manage your learning library.
-      </p>
+      <div>
+
+        <div class="breadcrumb">
+<!--          <span>Topics</span>-->
+<!--          <span>/</span>-->
+          <strong>Subjects</strong>
+        </div>
+
+        <h1>Subjects</h1>
+
+        <p>
+          Organize your learning by subjects and track your progress.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="add-subject-button"
+        (click)="addSubject()">
+
+        <span>+</span>
+
+        Add Subject
+
+      </button>
+
     </div>
-
-    <button
-      type="button"
-      class="primary-button"
-      (click)="addSubject()">
-
-      <span class="button-icon">+</span>
-
-      Add Subject
-
-    </button>
 
   </header>
 
 
-  <section class="subjects-section">
+  <section class="toolbar">
 
-    <div class="section-header">
+    <div class="search-wrapper">
 
-      <div>
-        <h2>Subjects</h2>
-
-        <p>
-          All subjects in your library.
-        </p>
-      </div>
-
-    </div>
-
-
-    <div class="filters">
-
-      <div class="search-box">
-
-        <span class="search-icon">⌕</span>
-
-        <input
-          type="text"
-          placeholder="Search subjects..."
-          [(ngModel)]="searchTerm"
-        />
-
-      </div>
-
-
-      <select [(ngModel)]="selectedStatus">
-
-        <option value="All Status">
-          All Status
-        </option>
-
-        <option value="Published">
-          Published
-        </option>
-
-        <option value="Draft">
-          Draft
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="subject-list">
-
-      @for (subject of filteredSubjects; track subject.id) {
-
-      <button
-        type="button"
-        class="subject-card"
-        (click)="openSubject(subject)">
-
-        <div
-          class="subject-icon"
-          [class]="subject.iconClass">
-
-          {{ subject.icon }}
-
-        </div>
-
-
-        <div class="subject-content">
-
-          <div class="subject-title-row">
-
-            <h3>
-              {{ subject.name }}
-            </h3>
-
-            <span
-              class="status-badge"
-              [class.draft]="subject.status === 'Draft'">
-
-                {{ subject.status }}
-
-              </span>
-
-          </div>
-
-
-          <p class="subject-description">
-            {{ subject.description }}
-          </p>
-
-
-          <div class="subject-meta">
-
-              <span>
-                {{ subject.topics }} Topics
-              </span>
-
-            <span>
-                {{ subject.subtopics }} Subtopics
-              </span>
-
-            <span>
-                {{ subject.estimatedTime }} Est. Time
-              </span>
-
-          </div>
-
-        </div>
-
-
-        <span class="subject-arrow">
-            →
-          </span>
-
-      </button>
-
-      }
-
-
-      @if (filteredSubjects.length === 0) {
-
-      <div class="empty-state">
-
-        <strong>
-          No subjects found
-        </strong>
-
-        <p>
-          Try changing your search or status filter.
-        </p>
-
-      </div>
-
-      }
-
-    </div>
-
-
-    <div class="pagination">
-
-      <span>
-        Showing 1 to {{ filteredSubjects.length }}
-        of {{ filteredSubjects.length }} subjects
+      <span class="search-icon">
+        ⌕
       </span>
 
-      <div class="pagination-controls">
+      <input
+        type="text"
+        placeholder="Search subjects..."
+        (input)="onSearch($event)"
+      />
 
-        <button type="button">
-          ‹
-        </button>
+    </div>
 
-        <button
-          type="button"
-          class="active">
 
-          1
+    <div class="subject-count">
 
-        </button>
+      <strong>
+        {{ filteredSubjects().length }}
+      </strong>
 
-        <button type="button">
-          2
-        </button>
-
-        <button type="button">
-          ›
-
-        </button>
-
-      </div>
+      subjects
 
     </div>
 
   </section>
+
+
+  @if (filteredSubjects().length > 0) {
+
+  <section class="subjects-grid">
+
+    @for (subject of filteredSubjects(); track subject.id) {
+
+    <article
+      class="subject-card"
+      (click)="openSubject(subject)">
+
+      <div class="card-top">
+
+        <div
+          class="subject-icon"
+          [class]="subject.colorClass">
+
+          @if (subject.name === 'JavaScript') {
+          JS
+          } @else if (subject.name === 'React') {
+          ⚛
+          } @else if (subject.name === 'Java') {
+          ☕
+          } @else if (subject.name === 'Data Structures & Algorithms') {
+          DSA
+          } @else if (subject.name === 'System Design') {
+          SD
+          } @else {
+          CSS
+          }
+
+        </div>
+
+
+        <div class="card-actions">
+
+          <button
+            type="button"
+            class="icon-button"
+            title="Edit subject"
+            (click)="editSubject(subject, $event)">
+
+            ✎
+
+          </button>
+
+
+          <button
+            type="button"
+            class="icon-button delete"
+            title="Delete subject"
+            (click)="deleteSubject(subject, $event)">
+
+            ×
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="subject-content">
+
+        <h2>
+          {{ subject.name }}
+        </h2>
+
+        <p>
+          {{ subject.description }}
+        </p>
+
+      </div>
+
+
+      <div class="subject-progress">
+
+        <div class="progress-header">
+
+              <span>
+                Progress
+              </span>
+
+          <strong>
+            {{ getCompletionPercentage(subject) }}%
+          </strong>
+
+        </div>
+
+
+        <div class="progress-track">
+
+          <div
+            class="progress-fill"
+            [style.width.%]="getCompletionPercentage(subject)">
+          </div>
+
+        </div>
+
+
+        <span class="topic-count">
+
+              {{ subject.completedTopics }}
+              of
+              {{ subject.topicCount }}
+              topics completed
+
+            </span>
+
+      </div>
+
+
+      <div class="card-footer">
+
+            <span>
+              View Topics
+            </span>
+
+        <span class="arrow">
+              →
+            </span>
+
+      </div>
+
+    </article>
+
+    }
+
+  </section>
+
+  } @else {
+
+  <section class="empty-state">
+
+    <div class="empty-icon">
+      ⌕
+    </div>
+
+    <h2>
+      No subjects found
+    </h2>
+
+    <p>
+      Try a different search term.
+    </p>
+
+  </section>
+
+  }
+
+  @if (showAddSubjectModal) {
+  <app-add-subject
+    (closed)="closeAddSubject()"
+    (submitted)="createSubject($event)">
+  </app-add-subject>
+  }
 
 </div>

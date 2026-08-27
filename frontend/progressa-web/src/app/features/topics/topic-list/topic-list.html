@@ -1,1 +1,203 @@
-<p>topic-list works!</p>
+<div class="topics-page">
+
+  <header class="page-header">
+
+    <div class="header-content">
+
+      <div>
+
+        <div class="breadcrumb">
+
+          <button
+            type="button"
+            (click)="goBack()">
+            Subjects
+          </button>
+
+          <span>/</span>
+
+          <strong>
+            {{ subjectName }}
+          </strong>
+
+        </div>
+
+        <h1>{{ subjectName }}</h1>
+
+        <p>
+          Choose a topic to explore its subtopics and track your learning.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="add-topic-button"
+        (click)="addTopic()">
+
+        <span>+</span>
+
+        Add Topic
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <section class="toolbar">
+
+    <div class="search-wrapper">
+
+      <span class="search-icon">
+        ⌕
+      </span>
+
+      <input
+        type="text"
+        placeholder="Search topics..."
+        (input)="onSearch($event)"
+      />
+
+    </div>
+
+
+    <div class="topic-count">
+
+      <strong>
+        {{ filteredTopics.length }}
+      </strong>
+
+      topics
+
+    </div>
+
+  </section>
+
+
+  @if (filteredTopics.length > 0) {
+
+  <section class="topics-list">
+
+    @for (topic of filteredTopics; track topic.id) {
+
+    <article
+      class="topic-card"
+      (click)="openTopic(topic)">
+
+      <div class="topic-number">
+
+        {{ topic.id }}
+
+      </div>
+
+
+      <div class="topic-main">
+
+        <div class="topic-heading">
+
+          <h2>
+            {{ topic.name }}
+          </h2>
+
+          <span class="status">
+                {{ getCompletionPercentage(topic) }}%
+              </span>
+
+        </div>
+
+
+        <p>
+          {{ topic.description }}
+        </p>
+
+
+        <div class="topic-progress">
+
+          <div class="progress-track">
+
+            <div
+              class="progress-fill"
+              [style.width.%]="getCompletionPercentage(topic)">
+            </div>
+
+          </div>
+
+          <span>
+                {{ topic.completedSubtopics }}
+                /
+                {{ topic.subtopicCount }}
+                subtopics
+              </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="topic-actions">
+
+        <button
+          type="button"
+          class="icon-button"
+          title="Edit"
+          (click)="editTopic(topic, $event)">
+
+          ✎
+
+        </button>
+
+        <button
+          type="button"
+          class="icon-button delete"
+          title="Delete"
+          (click)="deleteTopic(topic, $event)">
+
+          ×
+
+        </button>
+
+        <span class="arrow">
+              →
+            </span>
+
+      </div>
+
+    </article>
+
+    }
+
+  </section>
+
+  } @else {
+
+  <section class="empty-state">
+
+    <div class="empty-icon">
+      ⌕
+    </div>
+
+    <h2>
+      No topics found
+    </h2>
+
+    <p>
+      Try a different search term.
+    </p>
+
+  </section>
+
+  }
+
+  @if (showAddTopicModal) {
+  <app-add-topic
+    [subjectId]="subjectId"
+    [subjectName]="subjectName"
+    (closed)="closeAddTopic()"
+    (submitted)="createTopic($event)">
+  </app-add-topic>
+  }
+
+</div>

@@ -1,753 +1,537 @@
-<div class="dashboard-shell">
+<div class="dashboard-page">
 
-  <!-- ================= SIDEBAR ================= -->
+  <header class="top-header">
 
-  <aside class="sidebar">
+    <div class="header-spacer"></div>
 
-    <!-- Logo -->
-    <div class="sidebar-logo">
+    <div class="search-box">
 
-      <div class="logo-mark">
-        P
-      </div>
+      <span class="search-icon">
+        ⌕
+      </span>
 
-      <span>Progressa</span>
+      <input
+        type="text"
+        placeholder="Search topics, technologies, notes..."
+      />
 
     </div>
 
 
-    <!-- Navigation -->
-
-    <nav class="main-navigation">
-
-      <a
-        routerLink="/dashboard"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        class="navigation-item">
-
-        <span class="navigation-icon">⌂</span>
-
-        <span>Dashboard</span>
-
-      </a>
-
-
-      <a
-        routerLink="/progress"
-        routerLinkActive="active"
-        class="navigation-item">
-
-        <span class="navigation-icon">▥</span>
-
-        <span>Progress</span>
-
-      </a>
-
-
-      <a
-        routerLink="/topics"
-        routerLinkActive="active"
-        class="navigation-item">
-
-        <span class="navigation-icon">◇</span>
-
-        <span>Topics</span>
-
-      </a>
-
-
-      <a
-        routerLink="/plans"
-        routerLinkActive="active"
-        class="navigation-item">
-
-        <span class="navigation-icon">◎</span>
-
-        <span>Goals</span>
-
-      </a>
-
-
-      <a class="navigation-item">
-
-        <span class="navigation-icon">▣</span>
-
-        <span>Notes</span>
-
-      </a>
-
-
-      <a class="navigation-item">
-
-        <span class="navigation-icon">□</span>
-
-        <span>Calendar</span>
-
-      </a>
-
-
-      <a class="navigation-item">
-
-        <span class="navigation-icon">♧</span>
-
-        <span>Roadmap</span>
-
-      </a>
-
-
-      <a class="navigation-item">
-
-        <span class="navigation-icon">♢</span>
-
-        <span>Interviews</span>
-
-      </a>
-
-
-      <a class="navigation-item">
-
-        <span class="navigation-icon">▥</span>
-
-        <span>Analytics</span>
-
-      </a>
-
-    </nav>
-
-
-    <!-- Bottom navigation -->
-
-    <div class="sidebar-bottom">
-
-      <a class="navigation-item">
-
-        <span class="navigation-icon">⚙</span>
-
-        <span>Settings</span>
-
-      </a>
-
+    <div class="header-actions">
 
       <button
         type="button"
-        class="navigation-item logout-button"
-        (click)="logout()">
+        class="header-icon-button">
 
-        <span class="navigation-icon">↪</span>
+        ♧
 
-        <span>Logout</span>
+        <span class="notification-dot"></span>
 
       </button>
 
 
-      <!-- Pro Card -->
+      <button
+        type="button"
+        class="header-icon-button">
 
-      <div class="pro-card">
+        ☾
 
-        <div class="pro-icon">
-          ♛
-        </div>
-
-        <h3>
-          Go Pro
-        </h3>
-
-        <p>
-          Unlock advanced analytics,
-          custom roadmaps and more.
-        </p>
-
-        <button type="button">
-          Upgrade Now
-          <span>→</span>
-        </button>
-
-      </div>
-
-    </div>
-
-  </aside>
+      </button>
 
 
-  <!-- ================= MAIN ================= -->
+      <button
+        type="button"
+        class="profile-button">
 
-  <main class="main-content">
-
-
-    <!-- HEADER -->
-
-    <header class="top-header">
-
-      <div class="header-spacer"></div>
-
-
-      <!-- Search -->
-
-      <div class="search-box">
-
-        <span class="search-icon">
-          ⌕
+        <span class="avatar">
+          S
         </span>
 
-        <input
-          type="text"
-          placeholder="Search topics, technologies, notes..."
-        />
-
-      </div>
-
-
-      <div class="header-actions">
-
-        <button
-          type="button"
-          class="header-icon-button">
-
-          ♧
-
-          <span class="notification-dot"></span>
-
-        </button>
-
-
-        <button
-          type="button"
-          class="header-icon-button">
-
-          ☾
-
-        </button>
-
-
-        <button
-          type="button"
-          class="profile-button">
-
-          <span class="avatar">
-            S
-          </span>
-
-          <span class="profile-chevron">
-            ⌄
-          </span>
-
-        </button>
-
-      </div>
-
-    </header>
-
-
-    <!-- CONTENT -->
-
-    <div class="content">
-
-
-      <!-- GREETING -->
-
-      <section class="welcome-row">
-
-        <div class="welcome-text">
-
-          <h1>
-            Good morning, Swaraj! 👋
-          </h1>
-
-          <p>
-            Let's continue your learning journey and make today productive.
-          </p>
-
-        </div>
-
-
-        <!-- QUICK ACTIONS -->
-
-        <div class="quick-actions">
-
-
-          <!-- UPDATE PROGRESS -->
-
-          <button
-            type="button"
-            class="quick-action primary"
-            (click)="openUpdateProgress()">
-
-            <span class="quick-action-icon">
-              ↗
-            </span>
-
-            <span class="quick-action-content">
-
-              <strong>
-                Update Progress
-              </strong>
-
-              <small>
-                Mark completed topics & track your learning assigned topics
-              </small>
-
-            </span>
-
-            <span class="quick-action-arrow">
-              →
-            </span>
-
-          </button>
-
-
-          <!-- ADD NEW LEARNING -->
-
-          <button
-            type="button"
-            class="quick-action secondary"
-            (click)="openAddNewLearning()">
-
-            <span class="quick-action-icon">
-              +
-            </span>
-
-            <span class="quick-action-content">
-
-              <strong>
-                Add New Learning
-              </strong>
-
-              <small>
-                Add anything you learned outside assigned topics
-              </small>
-
-            </span>
-
-            <span class="quick-action-arrow">
-              →
-            </span>
-
-          </button>
-
-
-        </div>
-
-      </section>
-
-
-      <!-- STAT CARDS -->
-
-      <section class="stats-grid">
-
-        @for (stat of stats; track stat.label) {
-
-        <article class="stat-card">
-
-          <div
-            class="stat-icon"
-            [class.streak-icon]="stat.label === 'Current Streak'"
-            [class.time-icon]="stat.label === 'Time Invested'">
-
-            {{ stat.icon }}
-
-          </div>
-
-          <div class="stat-information">
-
-              <span class="stat-label">
-                {{ stat.label }}
-              </span>
-
-            <strong class="stat-value">
-              {{ stat.value }}
-            </strong>
-
-            <span
-              class="stat-trend"
-              [class.neutral]="stat.trendType === 'neutral'">
-
-                {{ stat.trend }}
-
-              </span>
-
-          </div>
-
-        </article>
-
-        }
-
-      </section>
-
-
-      <!-- ANALYTICS GRID -->
-
-      <section class="analytics-grid">
-
-
-        <!-- TOPICS LEARNED MOST -->
-
-        <article class="dashboard-card topics-card">
-
-          <div class="card-header">
-
-            <div>
-
-              <h2>
-                Topics Learned Most
-                <span class="info-icon">i</span>
-              </h2>
-
-              <span class="chart-label">
-                Hours
-              </span>
-
-            </div>
-
-
-            <div class="period-selector">
-
-              <button
-                type="button"
-                [class.active]="activePeriod === 'Daily'"
-                (click)="setPeriod('Daily')">
-
-                Daily
-
-              </button>
-
-              <button
-                type="button"
-                [class.active]="activePeriod === 'Weekly'"
-                (click)="setPeriod('Weekly')">
-
-                Weekly
-
-              </button>
-
-              <button
-                type="button"
-                [class.active]="activePeriod === 'Monthly'"
-                (click)="setPeriod('Monthly')">
-
-                Monthly
-
-              </button>
-
-            </div>
-
-          </div>
-
-
-          <!-- Chart -->
-
-          <div class="bar-chart">
-
-            <div class="y-axis">
-
-              <span>10</span>
-              <span>8</span>
-              <span>6</span>
-              <span>4</span>
-              <span>2</span>
-              <span>0</span>
-
-            </div>
-
-
-            <div class="chart-area">
-
-              <div class="grid-lines">
-
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-
-              </div>
-
-
-              <div class="bars">
-
-                @for (item of chartData; track item.name) {
-
-                <div class="bar-column">
-
-                    <span class="bar-value">
-                      {{ item.hours }}h
-                    </span>
-
-                  <div
-                    class="bar"
-                    [style.height.%]="getBarHeight(item.hours)">
-                  </div>
-
-                  <span class="bar-name">
-                      {{ item.name }}
-                    </span>
-
-                </div>
-
-                }
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <button
-            type="button"
-            class="outline-button">
-
-            View full report
-            <span>→</span>
-
-          </button>
-
-        </article>
-
-
-        <!-- CONTINUE LEARNING -->
-
-        <article class="dashboard-card continue-card">
-
-          <div class="card-header">
-
-            <h2>
-              Continue Learning
-            </h2>
-
-            <div class="legend">
-
-              <span>
-                <i class="completed-dot"></i>
-                Completed
-              </span>
-
-              <span>
-                <i class="total-dot"></i>
-                Total
-              </span>
-
-            </div>
-
-          </div>
-
-
-          <div class="learning-list">
-
-            @for (topic of learningTopics; track topic.name) {
-
-            <div class="learning-item">
-
-              <div
-                class="topic-icon"
-                [class]="topic.iconClass">
-
-                {{ topic.icon }}
-
-              </div>
-
-
-              <div class="learning-details">
-
-                <div class="learning-title">
-                  {{ topic.name }}
-                </div>
-
-                <div class="progress-track">
-
-                  <div
-                    class="progress-fill"
-                    [style.width.%]="topic.percentage">
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <div class="learning-percentage">
-
-                <strong>
-                  {{ topic.percentage }}%
-                </strong>
-
-                <span>
-                    ({{ topic.completed }} / {{ topic.total }})
-                  </span>
-
-              </div>
-
-            </div>
-
-            }
-
-          </div>
-
-
-          <button
-            type="button"
-            class="outline-button">
-
-            View all topics
-            <span>→</span>
-
-          </button>
-
-        </article>
-
-      </section>
-
-
-      <!-- BOTTOM GRID -->
-
-      <section class="bottom-grid">
-
-
-        <!-- RECENT ACTIVITY -->
-
-        <article class="dashboard-card activity-card">
-
-          <div class="card-header">
-
-            <h2>
-              Recent Activity
-            </h2>
-
-            <button
-              type="button"
-              class="text-button">
-
-              View All
-
-            </button>
-
-          </div>
-
-
-          <div class="activity-list">
-
-            @for (activity of activities; track activity.text) {
-
-            <div class="activity-item">
-
-                <span
-                  class="activity-icon"
-                  [class]="activity.iconClass">
-
-                  {{ activity.icon }}
-
-                </span>
-
-              <span class="activity-text">
-                  {{ activity.text }}
-                </span>
-
-              <span class="activity-time">
-                  {{ activity.time }}
-                </span>
-
-            </div>
-
-            }
-
-          </div>
-
-        </article>
-
-
-        <!-- REMINDERS -->
-
-        <article class="dashboard-card reminders-card">
-
-          <div class="card-header">
-
-            <h2>
-              Upcoming Reminders
-            </h2>
-
-            <button
-              type="button"
-              class="text-button">
-
-              View Calendar
-
-            </button>
-
-          </div>
-
-
-          <div class="reminder-list">
-
-            @for (reminder of reminders; track reminder.day) {
-
-            <div class="reminder-item">
-
-              <div class="date-box">
-
-                  <span>
-                    {{ reminder.month }}
-                  </span>
-
-                <strong>
-                  {{ reminder.day }}
-                </strong>
-
-              </div>
-
-
-              <div class="reminder-details">
-
-                <strong>
-                  {{ reminder.title }}
-                </strong>
-
-                <span>
-                    {{ reminder.description }}
-                  </span>
-
-              </div>
-
-
-              <div class="reminder-time">
-
-                  <span>
-                    {{ reminder.time }}
-                  </span>
-
-                <span class="bell">
-                    ♧
-                  </span>
-
-              </div>
-
-            </div>
-
-            }
-
-          </div>
-
-
-          <button
-            type="button"
-            class="outline-button">
-
-            View all reminders
-            <span>→</span>
-
-          </button>
-
-        </article>
-
-      </section>
-
+        <span class="profile-chevron">
+          ⌄
+        </span>
+
+      </button>
 
     </div>
 
-  </main>
+  </header>
 
 
-  <!-- ================= UPDATE PROGRESS MODAL ================= -->
+  <div class="content">
+
+    <section class="welcome-row">
+
+      <div class="welcome-text">
+
+        <h1>
+          Good morning, Swaraj! 👋
+        </h1>
+
+        <p>
+          Let's continue your learning journey and make today productive.
+        </p>
+
+      </div>
+
+
+      <div class="quick-actions">
+
+        <button
+          type="button"
+          class="quick-action primary"
+          (click)="openUpdateProgress()">
+
+          <span class="quick-action-icon">
+            ↗
+          </span>
+
+          <span class="quick-action-content">
+
+            <strong>
+              Update Progress
+            </strong>
+
+            <small>
+              Mark completed topics & track your learning assigned topics
+            </small>
+
+          </span>
+
+          <span class="quick-action-arrow">
+            →
+          </span>
+
+        </button>
+
+
+        <button
+          type="button"
+          class="quick-action secondary"
+          (click)="openAddNewLearning()">
+
+          <span class="quick-action-icon">
+            +
+          </span>
+
+          <span class="quick-action-content">
+
+            <strong>
+              Add New Learning
+            </strong>
+
+            <small>
+              Add anything you learned outside assigned topics
+            </small>
+
+          </span>
+
+          <span class="quick-action-arrow">
+            →
+          </span>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <section class="stats-grid">
+
+      @for (stat of stats; track stat.label) {
+
+      <article class="stat-card">
+
+        <div
+          class="stat-icon"
+          [class.streak-icon]="stat.label === 'Current Streak'"
+          [class.time-icon]="stat.label === 'Time Invested'">
+
+          {{ stat.icon }}
+
+        </div>
+
+        <div class="stat-information">
+
+            <span class="stat-label">
+              {{ stat.label }}
+            </span>
+
+          <strong class="stat-value">
+            {{ stat.value }}
+          </strong>
+
+          <span
+            class="stat-trend"
+            [class.neutral]="stat.trendType === 'neutral'">
+
+              {{ stat.trend }}
+
+            </span>
+
+        </div>
+
+      </article>
+
+      }
+
+    </section>
+
+
+    <section class="analytics-grid">
+
+      <article class="dashboard-card topics-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2>
+              Topics Learned Most
+              <span class="info-icon">i</span>
+            </h2>
+
+            <span class="chart-label">
+              Hours
+            </span>
+
+          </div>
+
+
+          <div class="period-selector">
+
+            <button
+              type="button"
+              [class.active]="activePeriod === 'Daily'"
+              (click)="setPeriod('Daily')">
+
+              Daily
+
+            </button>
+
+            <button
+              type="button"
+              [class.active]="activePeriod === 'Weekly'"
+              (click)="setPeriod('Weekly')">
+
+              Weekly
+
+            </button>
+
+            <button
+              type="button"
+              [class.active]="activePeriod === 'Monthly'"
+              (click)="setPeriod('Monthly')">
+
+              Monthly
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="bar-chart">
+
+          <div class="y-axis">
+
+            <span>10</span>
+            <span>8</span>
+            <span>6</span>
+            <span>4</span>
+            <span>2</span>
+            <span>0</span>
+
+          </div>
+
+
+          <div class="chart-area">
+
+            <div class="grid-lines">
+
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+
+            </div>
+
+
+            <div class="bars">
+
+              @for (item of chartData; track item.name) {
+
+              <div class="bar-column">
+
+                  <span class="bar-value">
+                    {{ item.hours }}h
+                  </span>
+
+                <div
+                  class="bar"
+                  [style.height.%]="getBarHeight(item.hours)">
+                </div>
+
+                <span class="bar-name">
+                    {{ item.name }}
+                  </span>
+
+              </div>
+
+              }
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="outline-button">
+
+          View full report
+          <span>→</span>
+
+        </button>
+
+      </article>
+
+
+      <article class="dashboard-card continue-card">
+
+        <div class="card-header">
+
+          <h2>
+            Continue Learning
+          </h2>
+
+          <div class="legend">
+
+            <span>
+              <i class="completed-dot"></i>
+              Completed
+            </span>
+
+            <span>
+              <i class="total-dot"></i>
+              Total
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="learning-list">
+
+          @for (topic of learningTopics; track topic.name) {
+
+          <div class="learning-item">
+
+            <div
+              class="topic-icon"
+              [class]="topic.iconClass">
+
+              {{ topic.icon }}
+
+            </div>
+
+
+            <div class="learning-details">
+
+              <div class="learning-title">
+                {{ topic.name }}
+              </div>
+
+              <div class="progress-track">
+
+                <div
+                  class="progress-fill"
+                  [style.width.%]="topic.percentage">
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="learning-percentage">
+
+              <strong>
+                {{ topic.percentage }}%
+              </strong>
+
+              <span>
+                  ({{ topic.completed }} / {{ topic.total }})
+                </span>
+
+            </div>
+
+          </div>
+
+          }
+
+        </div>
+
+
+        <button
+          type="button"
+          class="outline-button">
+
+          View all topics
+          <span>→</span>
+
+        </button>
+
+      </article>
+
+    </section>
+
+
+    <section class="bottom-grid">
+
+      <article class="dashboard-card activity-card">
+
+        <div class="card-header">
+
+          <h2>
+            Recent Activity
+          </h2>
+
+          <button
+            type="button"
+            class="text-button">
+
+            View All
+
+          </button>
+
+        </div>
+
+
+        <div class="activity-list">
+
+          @for (activity of activities; track activity.text) {
+
+          <div class="activity-item">
+
+              <span
+                class="activity-icon"
+                [class]="activity.iconClass">
+
+                {{ activity.icon }}
+
+              </span>
+
+            <span class="activity-text">
+                {{ activity.text }}
+              </span>
+
+            <span class="activity-time">
+                {{ activity.time }}
+              </span>
+
+          </div>
+
+          }
+
+        </div>
+
+      </article>
+
+
+      <article class="dashboard-card reminders-card">
+
+        <div class="card-header">
+
+          <h2>
+            Upcoming Reminders
+          </h2>
+
+          <button
+            type="button"
+            class="text-button">
+
+            View Calendar
+
+          </button>
+
+        </div>
+
+
+        <div class="reminder-list">
+
+          @for (reminder of reminders; track reminder.day) {
+
+          <div class="reminder-item">
+
+            <div class="date-box">
+
+                <span>
+                  {{ reminder.month }}
+                </span>
+
+              <strong>
+                {{ reminder.day }}
+              </strong>
+
+            </div>
+
+
+            <div class="reminder-details">
+
+              <strong>
+                {{ reminder.title }}
+              </strong>
+
+              <span>
+                  {{ reminder.description }}
+                </span>
+
+            </div>
+
+
+            <div class="reminder-time">
+
+                <span>
+                  {{ reminder.time }}
+                </span>
+
+              <span class="bell">
+                  ♧
+                </span>
+
+            </div>
+
+          </div>
+
+          }
+
+        </div>
+
+
+        <button
+          type="button"
+          class="outline-button">
+
+          View all reminders
+          <span>→</span>
+
+        </button>
+
+      </article>
+
+    </section>
+
+  </div>
+
 
   @if (showUpdateProgressModal) {
 
@@ -757,6 +541,7 @@
   </app-update-progress-modal>
 
   }
+
 
   @if (showAddNewLearningModal) {
 

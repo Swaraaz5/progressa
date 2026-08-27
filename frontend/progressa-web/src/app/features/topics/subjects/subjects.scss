@@ -1,0 +1,473 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.topics-page {
+  min-height: 100vh;
+  padding: 30px 32px 40px;
+  background: #fafbff;
+  color: #101735;
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+   font-size: 28px;
+  margin: 0 0 6px;
+  font-weight: 700;
+}
+
+.page-header p {
+  font-size: 14px;
+  margin: 0;
+  color: #68738f;
+}
+
+
+/* =========================
+   BUTTON
+   ========================= */
+
+.primary-button {
+  height: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+  padding: 0 15px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: linear-gradient(
+    135deg,
+    #6337eb,
+    #7948f2
+  );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 14px rgba(98, 55, 235, 0.16);
+}
+
+.primary-button:hover {
+  box-shadow:
+    0 7px 18px rgba(98, 55, 235, 0.23);
+}
+
+.button-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+
+/* =========================
+   SECTION
+   ========================= */
+
+.section-header {
+  margin-bottom: 13px;
+}
+
+.section-header h2 {
+  margin: 0 0 4px;
+
+  font-weight: 700;
+font-size: 20px;
+}
+
+.section-header p {
+    font-size: 13px;
+  margin: 0;
+
+  color: #697490;
+
+}
+
+
+/* =========================
+   FILTERS
+   ========================= */
+
+.filters {
+  display: grid;
+
+  grid-template-columns: 1fr 110px;
+
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+.search-box {
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 11px;
+
+  border: 1px solid #e3e6ee;
+  border-radius: 7px;
+
+  background: #ffffff;
+}
+
+.search-icon {
+  margin-right: 8px;
+
+  color: #697591;
+
+  font-size: 16px;
+}
+
+.search-box input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #27314d;
+
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.search-box input::placeholder {
+  color: #9098aa;
+}
+
+.filters select {
+  height: 35px;
+
+  padding: 0 9px;
+
+  border: 1px solid #e3e6ee;
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  color: #596582;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+}
+
+
+/* =========================
+   SUBJECT LIST
+   ========================= */
+
+.subject-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subject-card {
+  width: 100%;
+  min-height: 82px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 13px;
+
+  border: 1px solid #edf0f5;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.subject-card:hover {
+  border-color: #d7ccff;
+
+  box-shadow:
+    0 5px 17px rgba(40, 45, 80, 0.05);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   SUBJECT ICON
+   ========================= */
+
+.subject-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.subject-icon.java {
+  background: #fff0e9;
+  color: #ed501b;
+}
+
+.subject-icon.spring {
+  background: #edf9ed;
+  color: #45a94d;
+}
+
+.subject-icon.angular {
+  background: #fff0f2;
+  color: #df2d43;
+}
+
+.subject-icon.aws {
+  background: #fff6e9;
+  color: #eb8417;
+
+  font-size: 8px;
+}
+
+.subject-icon.postgres {
+  background: #edf5ff;
+  color: #3c78ae;
+}
+
+
+/* =========================
+   SUBJECT CONTENT
+   ========================= */
+
+.subject-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.subject-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+.subject-title-row h3 {
+  margin: 0;
+
+  color: #1c2542;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.subject-description {
+  overflow: hidden;
+
+  margin: 5px 0 8px;
+
+  color: #68738e;
+
+font-size: 13px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.subject-meta {
+  display: flex;
+  gap: 15px;
+
+  color: #596582;
+
+  font-size: 12px;
+}
+
+.subject-arrow {
+  color: #66728d;
+  font-size: 22px;
+}
+
+
+/* =========================
+   STATUS
+   ========================= */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 7px;
+
+  border-radius: 5px;
+
+  background: #eaf9ef;
+
+  color: #299c4d;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.status-badge.draft {
+  background: #fff4dc;
+  color: #d58a0b;
+}
+
+
+/* =========================
+   PAGINATION
+   ========================= */
+
+.pagination {
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #7c859a;
+
+  font-size: 7px;
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 3px;
+}
+
+.pagination-controls button {
+  width: 25px;
+  height: 25px;
+
+  border: none;
+  border-radius: 5px;
+
+  background: transparent;
+
+  color: #65718d;
+
+  font-family: inherit;
+  font-size: 8px;
+
+  cursor: pointer;
+}
+
+.pagination-controls button.active {
+  border: 1px solid #7650ed;
+
+  background: #faf8ff;
+
+  color: #6138ea;
+}
+
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+
+.empty-state {
+  min-height: 160px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #edf0f5;
+  border-radius: 9px;
+
+  background: #ffffff;
+}
+
+.empty-state strong {
+  color: #293250;
+  font-size: 11px;
+}
+
+.empty-state p {
+  margin: 6px 0 0;
+
+  color: #7c869c;
+
+  font-size: 8px;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 650px) {
+
+  .topics-page {
+    padding: 20px 16px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .subject-meta {
+    flex-wrap: wrap;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .page-header {
+    flex-direction: column;
+  }
+
+  .primary-button {
+    width: 100%;
+  }
+
+}

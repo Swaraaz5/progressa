@@ -1,0 +1,318 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app-layout {
+  min-height: 100vh;
+
+  display: flex;
+
+  background: #f8f9fc;
+}
+
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+
+  height: 100vh;
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 28px 16px;
+
+  background: #ffffff;
+  border-right: 1px solid #e9ebf1;
+
+  overflow-y: auto;
+}
+
+
+/* =========================
+   LOGO
+   ========================= */
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 0 10px;
+
+  margin-bottom: 38px;
+}
+
+.logo-mark {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #6438eb,
+    #7b4bf3
+  );
+
+  color: #ffffff;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sidebar-logo > span {
+  color: #18203b;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+/* =========================
+   NAVIGATION
+   ========================= */
+
+.main-navigation {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.navigation-item {
+  width: 100%;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 13px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #68738e;
+
+  text-decoration: none;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.navigation-item:hover {
+  background: #f6f3ff;
+
+  color: #6337eb;
+}
+
+.navigation-item.active {
+  background: #f0ebff;
+
+  color: #6035e8;
+
+  font-weight: 600;
+}
+
+.navigation-icon {
+  width: 21px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+}
+
+
+/* =========================
+   SIDEBAR BOTTOM
+   ========================= */
+
+.sidebar-bottom {
+  margin-top: auto;
+
+  padding-top: 18px;
+
+  border-top: 1px solid #eceef3;
+}
+
+.sidebar-bottom > .navigation-item {
+  margin-bottom: 4px;
+}
+
+.logout-button {
+  margin-bottom: 18px;
+}
+
+
+/* =========================
+   PRO CARD
+   ========================= */
+
+.pro-card {
+  padding: 18px 16px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    145deg,
+    #f4efff,
+    #eee8ff
+  );
+
+  border: 1px solid #e5dcff;
+}
+
+.pro-icon {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 10px;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #6337eb;
+
+  font-size: 15px;
+}
+
+.pro-card h3 {
+  margin: 0 0 5px;
+
+  color: #292342;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.pro-card p {
+  margin: 0 0 13px;
+
+  color: #77718e;
+
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.pro-card button {
+  width: 100%;
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 10px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #6337eb;
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   MAIN CONTENT
+   ========================= */
+
+.main-content {
+  flex: 1;
+
+  min-width: 0;
+  min-height: 100vh;
+
+  overflow-x: hidden;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 800px) {
+
+  .sidebar {
+    width: 210px;
+    min-width: 210px;
+  }
+
+}
+
+@media (max-width: 650px) {
+
+  .sidebar {
+    width: 70px;
+    min-width: 70px;
+
+    padding: 22px 9px;
+  }
+
+  .sidebar-logo {
+    justify-content: center;
+
+    padding: 0;
+
+    margin-bottom: 30px;
+  }
+
+  .sidebar-logo > span {
+    display: none;
+  }
+
+  .navigation-item {
+    justify-content: center;
+
+    padding: 0;
+  }
+
+  .navigation-item > span:last-child {
+    display: none;
+  }
+
+  .pro-card {
+    display: none;
+  }
+
+}

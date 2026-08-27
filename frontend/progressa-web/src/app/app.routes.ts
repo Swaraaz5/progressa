@@ -2,11 +2,13 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
+
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
   },
+
   {
     path: 'login',
     loadComponent: () =>
@@ -14,40 +16,70 @@ export const routes: Routes = [
         m => m.Login
       )
   },
+
   {
-    path: 'dashboard',
+    path: '',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./features/dashboard/dashboard').then(
-        m => m.Dashboard
-      )
+      import('./shared/components/layout/layout').then(
+        m => m.Layout
+      ),
+    children: [
+
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./features/dashboard/dashboard').then(
+            m => m.Dashboard
+          )
+      },
+
+      {
+        path: 'topics',
+        loadComponent: () =>
+          import('./features/topics/subjects/subjects').then(
+            m => m.Subjects
+          )
+      },
+
+      {
+        path: 'topics/:subjectId',
+        loadComponent: () =>
+          import('./features/topics/topic-list/topic-list').then(
+            m => m.TopicList
+          )
+      },
+
+      {
+        path: 'topics/:subjectId/:topicId',
+        loadComponent: () =>
+          import('./features/topics/subtopic-list/subtopic-list').then(
+            m => m.SubtopicList
+          )
+      },
+
+      {
+        path: 'plans',
+        loadComponent: () =>
+          import('./features/plans/plans').then(
+            m => m.Plans
+          )
+      },
+
+      {
+        path: 'progress',
+        loadComponent: () =>
+          import('./features/progress/progress').then(
+            m => m.Progress
+          )
+      }
+
+    ]
   },
-  {
-    path: 'topics',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/topics/topics').then(
-        m => m.Topics
-      )
-  },
-  {
-    path: 'plans',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/plans/plans').then(
-        m => m.Plans
-      )
-  },
-  {
-    path: 'progress',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/progress/progress').then(
-        m => m.Progress
-      )
-  },
+
   {
     path: '**',
     redirectTo: 'login'
   }
+
 ];

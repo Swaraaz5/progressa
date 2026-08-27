@@ -1,1 +1,1210 @@
-<p>topics works!</p>
+<div class="topics-page">
+
+  <!-- ================= HEADER ================= -->
+
+  <div class="page-header">
+
+    <div>
+      <h1>Topics</h1>
+
+      <p>
+        Manage your learning library.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="primary-button"
+      (click)="addSubject()">
+
+      <span>+</span>
+
+      Add Subject
+
+    </button>
+
+  </div>
+
+
+  <!-- ================= THREE COLUMN LIBRARY ================= -->
+
+  <div class="library-grid">
+
+
+    <!-- ================================================= -->
+    <!-- SUBJECTS -->
+    <!-- ================================================= -->
+
+    <section class="library-column">
+
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>
+            Subjects
+          </h2>
+
+          <p>
+            All subjects in your library.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- Search / Filter -->
+
+      <div class="filters">
+
+        <div class="search-box">
+
+          <span>⌕</span>
+
+          <input
+            type="text"
+            placeholder="Search subjects..."
+          />
+
+        </div>
+
+        <select>
+
+          <option>
+            All Status
+          </option>
+
+          <option>
+            Published
+          </option>
+
+          <option>
+            Draft
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Subject List -->
+
+      <div class="item-list">
+
+        @for (
+        subject of subjects;
+        track subject.id
+        ) {
+
+        <button
+          type="button"
+          class="subject-card"
+          [class.selected]="
+              selectedSubjectId === subject.id
+            "
+          (click)="selectSubject(subject)">
+
+          <div
+            class="subject-icon"
+            [class]="subject.iconClass">
+
+            {{ subject.icon }}
+
+          </div>
+
+
+          <div class="item-content">
+
+            <div class="item-title-row">
+
+              <strong>
+                {{ subject.name }}
+              </strong>
+
+              <span
+                class="status-badge"
+                [class.draft]="
+                    subject.status === 'Draft'
+                  ">
+
+                  {{ subject.status }}
+
+                </span>
+
+            </div>
+
+
+            <p>
+              {{ subject.description }}
+            </p>
+
+
+            <div class="item-meta">
+
+                <span>
+                  {{ subject.topics.length }} Topics
+                </span>
+
+              <span>
+                  {{ getSubjectSubtopicCount(subject) }} Subtopics
+                </span>
+
+              <span>
+                  {{ getSubjectTime(subject) }}
+                </span>
+
+            </div>
+
+          </div>
+
+
+          <span class="item-arrow">
+              ›
+            </span>
+
+        </button>
+
+        }
+
+      </div>
+
+
+      <div class="pagination">
+
+        <span>
+          Showing 1 to {{ subjects.length }} of {{ subjects.length }} subjects
+        </span>
+
+        <div class="pagination-controls">
+
+          <button type="button">
+            ‹
+          </button>
+
+          <button
+            type="button"
+            class="active">
+            1
+          </button>
+
+          <button type="button">
+            2
+          </button>
+
+          <button type="button">
+            ›
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Add Subject -->
+
+      @if (showSubjectForm) {
+
+      <div class="creation-card">
+
+        <div class="creation-header">
+
+          <h3>
+            Add New Subject
+          </h3>
+
+          <button
+            type="button"
+            (click)="showSubjectForm = false">
+
+            ×
+
+          </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Subject Name <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            placeholder="e.g., Java, Spring Boot"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Description
+          </label>
+
+          <textarea
+            rows="3"
+            placeholder="Brief description about this subject...">
+            </textarea>
+
+          <small>
+            0 / 500
+          </small>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Icon <span>*</span>
+          </label>
+
+          <select>
+
+            <option>
+              ◉ &nbsp; Choose an icon
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Category
+            <span class="optional">
+                (Optional)
+              </span>
+          </label>
+
+          <select>
+
+            <option>
+              Select category
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Status <span>*</span>
+          </label>
+
+          <select>
+
+            <option>
+              Draft
+            </option>
+
+            <option>
+              Published
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="cancel-button">
+
+            Cancel
+
+          </button>
+
+          <button
+            type="button"
+            class="primary-button">
+
+            Create Subject
+
+          </button>
+
+        </div>
+
+      </div>
+
+      }
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- TOPICS -->
+    <!-- ================================================= -->
+
+    <section class="library-column">
+
+
+      <div class="breadcrumb">
+
+        <span>‹</span>
+
+        <span>
+          Topics
+        </span>
+
+        <span>›</span>
+
+        <strong>
+          {{ selectedSubject.name }}
+        </strong>
+
+      </div>
+
+
+      <div class="selected-entity-card">
+
+        <div>
+
+          <h2>
+            {{ selectedSubject.name }}
+          </h2>
+
+          <p>
+            {{ selectedSubject.description }}
+          </p>
+
+        </div>
+
+        <button type="button">
+          ···
+        </button>
+
+      </div>
+
+
+      <div class="entity-meta">
+
+        <span>
+          ▦ {{ selectedSubject.topics.length }} Topics
+        </span>
+
+        <span>
+          ◇ {{ getSubjectSubtopicCount(selectedSubject) }} Subtopics
+        </span>
+
+        <span>
+          ◷ {{ getSubjectTime(selectedSubject) }}
+        </span>
+
+        <span class="status-badge">
+          {{ selectedSubject.status }}
+        </span>
+
+      </div>
+
+
+      <div class="section-header topics-heading">
+
+        <div>
+
+          <h2>
+            Topics
+          </h2>
+
+          <p>
+            All topics under {{ selectedSubject.name }}
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="addTopic()">
+
+          <span>+</span>
+
+          Add Topic
+
+        </button>
+
+      </div>
+
+
+      <div class="filters">
+
+        <div class="search-box">
+
+          <span>⌕</span>
+
+          <input
+            type="text"
+            placeholder="Search topics..."
+          />
+
+        </div>
+
+        <select>
+
+          <option>
+            All Status
+          </option>
+
+          <option>
+            Published
+          </option>
+
+          <option>
+            Draft
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Topic Table -->
+
+      <div class="table-card">
+
+        <div class="table-header">
+
+          <span>
+            Topic Name
+          </span>
+
+          <span>
+            Subtopics
+          </span>
+
+          <span>
+            Est. Time
+          </span>
+
+          <span>
+            Order
+          </span>
+
+          <span>
+            Status
+          </span>
+
+          <span></span>
+
+        </div>
+
+
+        @for (
+        topic of selectedSubject.topics;
+        track topic.id
+        ) {
+
+        <button
+          type="button"
+          class="table-row"
+          [class.selected-row]="
+              selectedTopicId === topic.id
+            "
+          (click)="selectTopic(topic)">
+
+            <span class="topic-name">
+              ⋮⋮
+              <strong>
+                {{ topic.name }}
+              </strong>
+            </span>
+
+          <span>
+              {{ topic.subtopics.length }}
+            </span>
+
+          <span>
+              {{ topic.estimatedTime }}
+            </span>
+
+          <span>
+              {{ topic.order }}
+            </span>
+
+          <span>
+
+              <span
+                class="status-badge"
+                [class.draft]="
+                  topic.status === 'Draft'
+                ">
+
+                {{ topic.status }}
+
+              </span>
+
+            </span>
+
+          <span class="more-button">
+              ···
+            </span>
+
+        </button>
+
+        }
+
+        @if (selectedSubject.topics.length === 0) {
+
+        <div class="empty-state">
+
+          <span>◇</span>
+
+          <strong>
+            No topics yet
+          </strong>
+
+          <p>
+            Add your first topic to this subject.
+          </p>
+
+          <button
+            type="button"
+            class="primary-button"
+            (click)="addTopic()">
+
+            + Add Topic
+
+          </button>
+
+        </div>
+
+        }
+
+      </div>
+
+
+      <!-- Topic Pagination -->
+
+      <div class="pagination">
+
+        <span>
+          Showing 1 to {{ selectedSubject.topics.length }}
+          of {{ selectedSubject.topics.length }} topics
+        </span>
+
+        <div class="pagination-controls">
+
+          <button type="button">
+            ‹
+          </button>
+
+          <button
+            type="button"
+            class="active">
+            1
+          </button>
+
+          <button type="button">
+            2
+          </button>
+
+          <button type="button">
+            3
+          </button>
+
+          <button type="button">
+            ›
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Add Topic -->
+
+      @if (showTopicForm) {
+
+      <div class="creation-card">
+
+        <div class="creation-header">
+
+          <h3>
+            Add New Topic
+          </h3>
+
+          <button
+            type="button"
+            (click)="showTopicForm = false">
+
+            ×
+
+          </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Subject <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            [value]="selectedSubject.name"
+            readonly
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Topic Name <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            placeholder="e.g., Java Fundamentals"
+          />
+
+        </div>
+
+
+        <div class="form-group full-width">
+
+          <label>
+            Description
+          </label>
+
+          <textarea
+            rows="3"
+            placeholder="Brief description about this topic...">
+            </textarea>
+
+          <small>
+            0 / 500
+          </small>
+
+        </div>
+
+
+        <div class="two-column">
+
+          <div class="form-group">
+
+            <label>
+              Estimated Time <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              placeholder="e.g., 10 hours"
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Display Order <span>*</span>
+            </label>
+
+            <input
+              type="number"
+              value="1"
+            />
+
+            <small>
+              Lower numbers appear first
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Status <span>*</span>
+          </label>
+
+          <select>
+
+            <option>
+              Draft
+            </option>
+
+            <option>
+              Published
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="cancel-button">
+
+            Cancel
+
+          </button>
+
+          <button
+            type="button"
+            class="primary-button">
+
+            Create Topic
+
+          </button>
+
+        </div>
+
+      </div>
+
+      }
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- SUBTOPICS -->
+    <!-- ================================================= -->
+
+    <section class="library-column">
+
+
+      <div class="breadcrumb">
+
+        <span>‹</span>
+
+        <span>
+          Topics
+        </span>
+
+        <span>›</span>
+
+        <span>
+          {{ selectedSubject.name }}
+        </span>
+
+        <span>›</span>
+
+        <strong>
+          {{ selectedTopic?.name }}
+        </strong>
+
+      </div>
+
+
+      @if (selectedTopic) {
+
+      <div class="selected-entity-card">
+
+        <div>
+
+          <h2>
+            {{ selectedTopic.name }}
+          </h2>
+
+          <p>
+            {{ selectedTopic.description }}
+          </p>
+
+        </div>
+
+        <button type="button">
+          ···
+        </button>
+
+      </div>
+
+
+      <div class="entity-meta">
+
+          <span>
+            ▦ {{ selectedTopic.subtopics.length }} Subtopics
+          </span>
+
+        <span>
+            ◷ {{ selectedTopic.estimatedTime }}
+          </span>
+
+        <span>
+            ◉ Order: {{ selectedTopic.order }}
+          </span>
+
+        <span class="status-badge">
+            {{ selectedTopic.status }}
+          </span>
+
+      </div>
+
+
+      <div class="section-header topics-heading">
+
+        <div>
+
+          <h2>
+            Subtopics
+          </h2>
+
+          <p>
+            All subtopics under {{ selectedTopic.name }}
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="addSubtopic()">
+
+          <span>+</span>
+
+          Add Subtopic
+
+        </button>
+
+      </div>
+
+
+      <div class="filters">
+
+        <div class="search-box">
+
+          <span>⌕</span>
+
+          <input
+            type="text"
+            placeholder="Search subtopics..."
+          />
+
+        </div>
+
+        <select>
+
+          <option>
+            All Status
+          </option>
+
+          <option>
+            Published
+          </option>
+
+          <option>
+            Draft
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="table-card">
+
+        <div class="table-header subtopic-header">
+
+            <span>
+              Subtopic Name
+            </span>
+
+          <span>
+              Est. Time
+            </span>
+
+          <span>
+              Order
+            </span>
+
+          <span>
+              Status
+            </span>
+
+          <span></span>
+
+        </div>
+
+
+        @for (
+        subtopic of selectedTopic.subtopics;
+        track subtopic.id
+        ) {
+
+        <button
+          type="button"
+          class="table-row subtopic-row">
+
+              <span class="topic-name">
+
+                ⋮⋮
+
+                <strong>
+                  {{ subtopic.name }}
+                </strong>
+
+              </span>
+
+          <span>
+                {{ subtopic.estimatedTime }}
+              </span>
+
+          <span>
+                {{ subtopic.order }}
+              </span>
+
+          <span>
+
+                <span class="status-badge">
+                  {{ subtopic.status }}
+                </span>
+
+              </span>
+
+          <span class="more-button">
+                ···
+              </span>
+
+        </button>
+
+        }
+
+      </div>
+
+
+      <div class="pagination">
+
+          <span>
+            Showing 1 to {{ selectedTopic.subtopics.length }}
+            of {{ selectedTopic.subtopics.length }} subtopics
+          </span>
+
+        <div class="pagination-controls">
+
+          <button type="button">
+            ‹
+          </button>
+
+          <button
+            type="button"
+            class="active">
+            1
+          </button>
+
+          <button type="button">
+            2
+          </button>
+
+          <button type="button">
+            ›
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Add Subtopic -->
+
+      @if (showSubtopicForm) {
+
+      <div class="creation-card">
+
+        <div class="creation-header">
+
+          <h3>
+            Add New Subtopic
+          </h3>
+
+          <button
+            type="button"
+            (click)="showSubtopicForm = false">
+
+            ×
+
+          </button>
+
+        </div>
+
+
+        <div class="two-column">
+
+          <div class="form-group">
+
+            <label>
+              Subject <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              [value]="selectedSubject.name"
+              readonly
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Topic
+            </label>
+
+            <input
+              type="text"
+              [value]="selectedTopic.name"
+              readonly
+            />
+
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Subtopic Name <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            placeholder="e.g., Data Types"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Description
+            <span class="optional">
+                  (Optional)
+                </span>
+          </label>
+
+          <textarea
+            rows="3"
+            placeholder="Brief description about this subtopic...">
+              </textarea>
+
+          <small>
+            0 / 500
+          </small>
+
+        </div>
+
+
+        <div class="two-column">
+
+          <div class="form-group">
+
+            <label>
+              Estimated Time <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              placeholder="e.g., 1 hour"
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Display Order <span>*</span>
+            </label>
+
+            <input
+              type="number"
+              value="1"
+            />
+
+            <small>
+              Lower numbers appear first
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Status <span>*</span>
+          </label>
+
+          <select>
+
+            <option>
+              Draft
+            </option>
+
+            <option>
+              Published
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="cancel-button">
+
+            Cancel
+
+          </button>
+
+          <button
+            type="button"
+            class="primary-button">
+
+            Create Subtopic
+
+          </button>
+
+        </div>
+
+      </div>
+
+      }
+
+      } @else {
+
+      <div class="empty-state large">
+
+        <span>◇</span>
+
+        <strong>
+          Select a topic
+        </strong>
+
+        <p>
+          Select a topic to view its subtopics.
+        </p>
+
+      </div>
+
+      }
+
+    </section>
+
+  </div>
+
+</div>

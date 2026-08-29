@@ -196,6 +196,7 @@
 
         </button>
 
+
         <button
           type="button"
           class="icon-button delete"
@@ -231,6 +232,22 @@
     </p>
 
   </section>
+
+  }
+
+
+  <!-- Add Subtopic Modal -->
+
+  @if (showAddSubtopicModal) {
+
+  <app-add-subtopic
+    [subjectId]="subjectId"
+    [subjectName]="subjectName"
+    [topicId]="+topicId"
+    [topicName]="topicName"
+    (closed)="closeAddSubtopic()"
+    (submitted)="createSubtopic($event)">
+  </app-add-subtopic>
 
   }
 

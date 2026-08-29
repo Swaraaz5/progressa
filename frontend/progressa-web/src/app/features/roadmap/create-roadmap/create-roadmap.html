@@ -1,0 +1,799 @@
+<div class="modal-backdrop">
+
+  <section
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="create-roadmap-title">
+
+    <!-- HEADER -->
+
+    <header class="modal-header">
+
+      <h2 id="create-roadmap-title">
+        Create New Learning Plan
+      </h2>
+
+      <button
+        type="button"
+        class="close-button"
+        aria-label="Close"
+        (click)="close()">
+
+        ×
+
+      </button>
+
+    </header>
+
+
+    <!-- STEPPER -->
+
+    <div class="stepper">
+
+      <div
+        class="step"
+        [class.active]="currentStep === 1"
+        [class.completed]="currentStep > 1">
+
+        <span class="step-number">
+
+          @if (currentStep > 1) {
+            ✓
+          } @else {
+            1
+          }
+
+        </span>
+
+        <span class="step-label">
+          Choose Subject
+        </span>
+
+      </div>
+
+
+      <div class="step-line"></div>
+
+
+      <div
+        class="step"
+        [class.active]="currentStep === 2"
+        [class.completed]="currentStep > 2">
+
+        <span class="step-number">
+
+          @if (currentStep > 2) {
+            ✓
+          } @else {
+            2
+          }
+
+        </span>
+
+        <span class="step-label">
+          Select Topics
+        </span>
+
+      </div>
+
+
+      <div class="step-line"></div>
+
+
+      <div
+        class="step"
+        [class.active]="currentStep === 3"
+        [class.completed]="currentStep > 3">
+
+        <span class="step-number">
+
+          @if (currentStep > 3) {
+            ✓
+          } @else {
+            3
+          }
+
+        </span>
+
+        <span class="step-label">
+          Select Subtopics
+        </span>
+
+      </div>
+
+
+      <div class="step-line"></div>
+
+
+      <div
+        class="step"
+        [class.active]="currentStep === 4">
+
+        <span class="step-number">
+          4
+        </span>
+
+        <span class="step-label">
+          Plan Summary
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STEP 1
+    ====================================================== -->
+
+    @if (currentStep === 1) {
+
+    <div class="modal-content">
+
+      <div class="content-header">
+
+        <h3>
+          Choose a Subject
+        </h3>
+
+        <p>
+          Select the subject you want to learn.
+        </p>
+
+      </div>
+
+
+      <div class="toolbar">
+
+        <div class="search-wrapper">
+
+          <span class="search-icon">
+            ⌕
+          </span>
+
+          <input
+            type="text"
+            placeholder="Search subjects..."
+            (input)="onSearch($event)"
+          />
+
+        </div>
+
+
+        <select
+          class="category-select"
+          [value]="selectedCategory"
+          (change)="onCategoryChange($event)">
+
+          @for (
+          category of categories;
+          track category
+          ) {
+
+          <option [value]="category">
+            {{ category }}
+          </option>
+
+          }
+
+        </select>
+
+      </div>
+
+
+      <div class="subjects-list">
+
+        @for (
+        subject of filteredSubjects;
+        track subject.id
+        ) {
+
+        <button
+          type="button"
+          class="subject-option"
+          [class.selected]="isSelected(subject)"
+          (click)="selectSubject(subject)">
+
+          <span
+            class="radio"
+            [class.checked]="isSelected(subject)">
+
+            @if (isSelected(subject)) {
+              <span class="radio-dot"></span>
+            }
+
+          </span>
+
+
+          <span
+            class="subject-icon"
+            [class]="subject.iconClass">
+
+            {{ subject.icon }}
+
+          </span>
+
+
+          <span class="subject-details">
+
+            <strong>
+              {{ subject.name }}
+            </strong>
+
+            <span class="subject-description">
+              {{ subject.description }}
+            </span>
+
+            <span class="subject-meta">
+
+              {{ subject.topicCount }}
+              Topics
+
+              <span>•</span>
+
+              {{ subject.subtopicCount }}
+              Subtopics
+
+              <span>•</span>
+
+              {{ subject.estimatedHours }}h Est. Time
+
+            </span>
+
+          </span>
+
+        </button>
+
+        }
+
+      </div>
+
+    </div>
+
+
+    <footer class="modal-footer">
+
+      <button
+        type="button"
+        class="cancel-button"
+        (click)="close()">
+
+        Cancel
+
+      </button>
+
+
+      <button
+        type="button"
+        class="next-button"
+        [disabled]="selectedSubjectId === null"
+        (click)="goToTopics()">
+
+        Next: Select Topics
+
+        <span>→</span>
+
+      </button>
+
+    </footer>
+
+    }
+
+
+    <!-- =====================================================
+         STEP 2
+    ====================================================== -->
+
+    @if (currentStep === 2) {
+
+    <div class="modal-content">
+
+      <div class="selected-subject">
+
+        <span>
+          Subject:
+        </span>
+
+        <strong>
+          {{ selectedSubject?.name }}
+        </strong>
+
+      </div>
+
+
+      <div class="content-header topic-header">
+
+        <div>
+
+          <h3>
+            Select Topics
+          </h3>
+
+          <p>
+            Choose the topics you want to include in your plan.
+          </p>
+
+        </div>
+
+
+        <strong class="selected-count">
+
+          Selected Topics:
+          {{ selectedTopicCount }}
+
+        </strong>
+
+      </div>
+
+
+      <div class="topic-search">
+
+        <span class="search-icon">
+          ⌕
+        </span>
+
+        <input
+          type="text"
+          placeholder="Search topics..."
+          (input)="onSearch($event)"
+        />
+
+      </div>
+
+
+      <div class="topics-list">
+
+        @for (
+        topic of filteredTopics;
+        track topic.id
+        ) {
+
+        <button
+          type="button"
+          class="topic-option"
+          [class.selected]="isTopicSelected(topic)"
+          (click)="toggleTopic(topic)">
+
+          <span
+            class="checkbox"
+            [class.checked]="isTopicSelected(topic)">
+
+            @if (isTopicSelected(topic)) {
+              ✓
+            }
+
+          </span>
+
+
+          <span class="topic-name">
+            {{ topic.name }}
+          </span>
+
+
+          <span class="topic-meta">
+
+            {{ topic.subtopicCount }}
+            Subtopics
+
+            <span>•</span>
+
+            {{ topic.estimatedHours }}h
+
+          </span>
+
+        </button>
+
+        }
+
+      </div>
+
+    </div>
+
+
+    <footer class="modal-footer step-two-footer">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+
+        <span>←</span>
+
+        Back
+
+      </button>
+
+
+      <button
+        type="button"
+        class="next-button"
+        [disabled]="selectedTopicCount === 0"
+        (click)="goToSubtopics()">
+
+        Next: Select Subtopics
+
+        <span>→</span>
+
+      </button>
+
+    </footer>
+
+    }
+
+
+    <!-- =====================================================
+         STEP 3
+    ====================================================== -->
+
+    @if (currentStep === 3) {
+
+    <div class="modal-content">
+
+      <div class="selection-breadcrumb">
+
+        <span>
+          Subject:
+        </span>
+
+        <strong>
+          {{ selectedSubject?.name }}
+        </strong>
+
+        <span class="breadcrumb-arrow">
+          ›
+        </span>
+
+        <span>
+          Topics:
+        </span>
+
+        <strong>
+          {{ selectedTopicCount }} selected
+        </strong>
+
+      </div>
+
+
+      <div class="content-header subtopic-header">
+
+        <div>
+
+          <h3>
+            Select Subtopics
+          </h3>
+
+          <p>
+            Choose the subtopics you want to learn.
+          </p>
+
+        </div>
+
+
+        <strong class="selected-count">
+
+          Selected Subtopics:
+          {{ selectedSubtopicCount }}
+
+        </strong>
+
+      </div>
+
+
+      <div class="topic-search subtopic-search">
+
+        <span class="search-icon">
+          ⌕
+        </span>
+
+        <input
+          type="text"
+          placeholder="Search subtopics..."
+          (input)="onSearch($event)"
+        />
+
+      </div>
+
+
+      <div class="subtopics-list">
+
+        @for (
+        subtopic of filteredSubtopics;
+        track subtopic.id
+        ) {
+
+        <button
+          type="button"
+          class="subtopic-option"
+          [class.selected]="isSubtopicSelected(subtopic)"
+          (click)="toggleSubtopic(subtopic)">
+
+          <span
+            class="checkbox"
+            [class.checked]="isSubtopicSelected(subtopic)">
+
+            @if (isSubtopicSelected(subtopic)) {
+              ✓
+            }
+
+          </span>
+
+
+          <span class="subtopic-name">
+
+            {{ subtopic.name }}
+
+          </span>
+
+
+          <span class="subtopic-time">
+
+            {{ formatEstimatedTime(
+              subtopic.estimatedMinutes
+            ) }}
+
+          </span>
+
+        </button>
+
+        }
+
+      </div>
+
+    </div>
+
+
+    <footer class="modal-footer step-two-footer">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+
+        <span>←</span>
+
+        Back
+
+      </button>
+
+
+      <button
+        type="button"
+        class="next-button"
+        [disabled]="selectedSubtopicCount === 0"
+        (click)="goToSummary()">
+
+        Next: Plan Summary
+
+        <span>→</span>
+
+      </button>
+
+    </footer>
+
+    }
+
+
+    <!-- =====================================================
+         STEP 4 - PLAN SUMMARY
+    ====================================================== -->
+
+    @if (currentStep === 4) {
+
+    <div class="modal-content summary-content">
+
+      <div class="content-header">
+
+        <h3>
+          Plan Summary
+        </h3>
+
+        <p>
+          Review your selections and give your plan a name.
+        </p>
+
+      </div>
+
+
+      <!-- SUMMARY TABLE -->
+
+      <div class="summary-table">
+
+        <!-- SUBJECT -->
+
+        <div class="summary-row">
+
+          <div class="summary-label">
+            Subject
+          </div>
+
+          <div class="summary-value">
+
+            {{ selectedSubject?.name }}
+
+          </div>
+
+        </div>
+
+
+        <!-- TOPICS -->
+
+        <div class="summary-row">
+
+          <div class="summary-label">
+            Topics
+          </div>
+
+          <div class="summary-value summary-list-value">
+
+            <strong>
+              {{ selectedTopicCount }} Topics
+            </strong>
+
+            <ul>
+
+              @for (
+              topic of selectedTopics;
+              track topic.id
+              ) {
+
+              <li>
+                {{ topic.name }}
+              </li>
+
+              }
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- SUBTOPICS -->
+
+        <div class="summary-row">
+
+          <div class="summary-label">
+            Subtopics
+          </div>
+
+          <div class="summary-value summary-list-value">
+
+            <strong>
+              {{ selectedSubtopicCount }} Subtopics
+            </strong>
+
+            <div class="summary-subtopics">
+
+              @for (
+              subtopic of selectedSubtopics;
+              track subtopic.id
+              ) {
+
+              <span class="summary-subtopic">
+
+                {{ subtopic.name }}
+
+              </span>
+
+              }
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ESTIMATED TIME -->
+
+        <div class="summary-row">
+
+          <div class="summary-label">
+            Estimated Total Time
+          </div>
+
+          <div class="summary-value">
+
+            ~ {{ totalEstimatedTime }}
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PLAN NAME -->
+
+      <div class="plan-form">
+
+        <div class="form-group">
+
+          <label for="plan-name">
+
+            Plan Name
+
+            <span>*</span>
+
+          </label>
+
+          <input
+            id="plan-name"
+            type="text"
+            [value]="planName"
+            maxlength="100"
+            placeholder="e.g., Java Fundamentals Plan"
+            (input)="onPlanNameChange($event)"
+          />
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="form-group">
+
+          <div class="label-row">
+
+            <label for="plan-description">
+              Description (Optional)
+            </label>
+
+            <span>
+              {{ planDescription.length }} / 200
+            </span>
+
+          </div>
+
+
+          <textarea
+            id="plan-description"
+            rows="3"
+            maxlength="200"
+            [value]="planDescription"
+            placeholder="Add a short description for your plan..."
+            (input)="onPlanDescriptionChange($event)">
+          </textarea>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <footer class="modal-footer summary-footer">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+
+        <span>←</span>
+
+        Back
+
+      </button>
+
+
+      <button
+        type="button"
+        class="next-button"
+        [disabled]="!planName.trim()"
+        (click)="createRoadmap()">
+
+        Create Plan
+
+        <span>✓</span>
+
+      </button>
+
+    </footer>
+
+    }
+
+  </section>
+
+</div>

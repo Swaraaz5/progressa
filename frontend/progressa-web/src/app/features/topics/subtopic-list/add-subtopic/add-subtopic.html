@@ -1,0 +1,241 @@
+<div class="modal-backdrop">
+
+  <section
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="add-subtopic-title">
+
+    <!-- Header -->
+
+    <header class="modal-header">
+
+      <h2 id="add-subtopic-title">
+        Add New Subtopic
+      </h2>
+
+      <button
+        type="button"
+        class="close-button"
+        aria-label="Close add subtopic modal"
+        (click)="close()">
+
+        ×
+
+      </button>
+
+    </header>
+
+
+    <!-- Form -->
+
+    <form
+      [formGroup]="subtopicForm"
+      (ngSubmit)="submit()">
+
+
+      <!-- Subject -->
+
+      <div class="form-group">
+
+        <label for="subject">
+          Subject
+        </label>
+
+        <input
+          id="subject"
+          type="text"
+          formControlName="subject"
+          readonly
+           />
+
+      </div>
+
+
+      <!-- Topic -->
+
+      <div class="form-group">
+
+        <label for="topic">
+          Topic
+        </label>
+
+        <input
+          id="topic"
+          type="text"
+          formControlName="topic"
+          readonly
+           />
+
+      </div>
+
+
+      <!-- Subtopic Name -->
+
+      <div class="form-group">
+
+        <label for="subtopic-name">
+          Subtopic Name
+          <span>*</span>
+        </label>
+
+        <input
+          id="subtopic-name"
+          type="text"
+          formControlName="name"
+          placeholder="e.g., Variables and Data Types" />
+
+        @if (
+        subtopicForm.controls.name.touched &&
+        subtopicForm.controls.name.invalid
+        ) {
+
+        <small class="error-message">
+          Enter a subtopic name with at least 2 characters.
+        </small>
+
+        }
+
+      </div>
+
+
+      <!-- Description -->
+
+      <div class="form-group">
+
+        <div class="label-row">
+
+          <label for="description">
+            Description
+            <span class="optional">(Optional)</span>
+          </label>
+
+          <span>
+            {{ subtopicForm.controls.description.value.length }} / 500
+          </span>
+
+        </div>
+
+        <textarea
+          id="description"
+          rows="3"
+          maxlength="500"
+          formControlName="description"
+          placeholder="Brief description about this subtopic...">
+        </textarea>
+
+      </div>
+
+
+      <!-- Estimated Time + Display Order -->
+
+      <div class="form-row">
+
+        <!-- Estimated Time -->
+
+        <div class="form-group">
+
+          <label for="estimated-time">
+            Estimated Time
+            <span>*</span>
+          </label>
+
+          <input
+            id="estimated-time"
+            type="text"
+            formControlName="estimatedTime"
+            placeholder="e.g., 30 min" />
+
+          @if (
+          subtopicForm.controls.estimatedTime.touched &&
+          subtopicForm.controls.estimatedTime.invalid
+          ) {
+
+          <small class="error-message">
+            Enter the estimated time.
+          </small>
+
+          }
+
+        </div>
+
+
+        <!-- Display Order -->
+
+        <div class="form-group">
+
+          <label for="display-order">
+            Display Order
+            <span>*</span>
+          </label>
+
+          <input
+            id="display-order"
+            type="number"
+            min="1"
+            formControlName="displayOrder"
+            placeholder="1" />
+
+          <small class="field-hint">
+            Determines the order of subtopics.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Status -->
+
+      <div class="form-group">
+
+        <label for="status">
+          Status
+          <span>*</span>
+        </label>
+
+        <select
+          id="status"
+          formControlName="status">
+
+          <option value="Draft">
+            Draft
+          </option>
+
+          <option value="Published">
+            Published
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Footer -->
+
+      <footer class="modal-footer">
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="close()">
+
+          Cancel
+
+        </button>
+
+        <button
+          type="submit"
+          class="submit-button">
+
+          Create Subtopic
+
+        </button>
+
+      </footer>
+
+    </form>
+
+  </section>
+
+</div>

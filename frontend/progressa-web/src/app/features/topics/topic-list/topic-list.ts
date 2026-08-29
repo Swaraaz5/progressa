@@ -7,8 +7,12 @@ import {
 
 interface Topic {
   id: number;
+  subjectId?: string;
   name: string;
   description: string;
+  estimatedTime?: string;
+  displayOrder?: number;
+  status?: string;
   subtopicCount: number;
   completedSubtopics: number;
 }
@@ -107,7 +111,7 @@ export class TopicList {
   openTopic(topic: Topic): void {
 
     this.router.navigate([
-      '/topics',
+      '/subjects',
       this.subjectId,
       topic.id
     ]);
@@ -132,8 +136,12 @@ export class TopicList {
       ...this.topics,
       {
         id: nextId,
+        subjectId: data.subjectId,
         name: data.name,
         description: data.description,
+        estimatedTime: data.estimatedTime,
+        displayOrder: data.displayOrder,
+        status: data.status,
         subtopicCount: 0,
         completedSubtopics: 0
       }

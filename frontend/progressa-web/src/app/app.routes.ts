@@ -108,7 +108,7 @@ export const routes: Routes = [
       // ========================================
       // Disabled for now.
 
-      /*
+
       {
         path: 'subjects/:subjectId/:topicId',
         loadComponent: () =>
@@ -118,7 +118,7 @@ export const routes: Routes = [
             m => m.SubtopicList
           )
       },
-      */
+
 
 
       // ========================================
@@ -126,10 +126,10 @@ export const routes: Routes = [
       // ========================================
 
       {
-        path: 'plans',
+        path: 'roadmap',
         loadComponent: () =>
-          import('./features/plans/plans').then(
-            m => m.Plans
+          import('./features/roadmap/roadmap').then(
+            m => m.Roadmap
           )
       },
 

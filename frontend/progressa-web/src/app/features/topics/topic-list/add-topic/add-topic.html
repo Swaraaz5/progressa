@@ -23,7 +23,11 @@
       <div class="form-grid">
         <div class="form-group">
           <label for="subject">Subject <span>*</span></label>
-          <input id="subject" type="text" [value]="subjectName" readonly />
+          <select id="subject" formControlName="subjectId">
+            <option [value]="topicForm.controls.subjectId.value">
+              {{ subjectName }}
+            </option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -55,11 +59,43 @@
           <small class="error-message">Enter a description with at least 10 characters.</small>
           }
         </div>
+
+        <div class="form-group">
+          <label for="estimated-time">Estimated Time <span>*</span></label>
+          <input
+            id="estimated-time"
+            type="text"
+            formControlName="estimatedTime"
+            placeholder="◷  e.g., 10 hours"
+          />
+          @if (topicForm.controls.estimatedTime.touched && topicForm.controls.estimatedTime.invalid) {
+          <small class="error-message">Enter an estimated time.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="display-order">Display Order <span>*</span></label>
+          <input
+            id="display-order"
+            type="number"
+            min="1"
+            formControlName="displayOrder"
+          />
+          <small class="field-help">Lower numbers appear first.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="status">Status <span>*</span></label>
+          <select id="status" formControlName="status">
+            <option value="Draft">▣ &nbsp; Draft</option>
+            <option value="Active">● &nbsp; Active</option>
+          </select>
+        </div>
       </div>
 
       <footer class="modal-footer">
         <button type="button" class="cancel-button" (click)="close()">Cancel</button>
-        <button type="submit" class="submit-button">Add Topic</button>
+        <button type="submit" class="submit-button">Create Topic</button>
       </footer>
 
     </form>

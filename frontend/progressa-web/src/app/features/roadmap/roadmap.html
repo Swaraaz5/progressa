@@ -1,0 +1,228 @@
+<div class="roadmap-page">
+
+  <!-- Page Header -->
+
+  <header class="page-header">
+
+    <div class="header-content">
+
+      <div>
+
+        <div class="breadcrumb">
+          <strong>Roadmaps</strong>
+        </div>
+
+        <h1>
+          Roadmaps
+        </h1>
+
+        <p>
+          Manage your learning roadmaps and continue where you left off.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="create-roadmap-button"
+        (click)="createRoadmap()">
+
+        <span class="button-icon">
+          +
+        </span>
+
+        Create Roadmap
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- Enrolled Subjects -->
+
+  <section class="enrolled-section">
+
+    <div class="section-header">
+
+      <div>
+
+        <h2>
+          My Enrolled Subjects
+        </h2>
+
+        <p>
+          Subjects you're currently learning through your roadmaps.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Subject Cards -->
+
+    <section class="subjects-grid">
+
+      @for (subject of enrolledSubjects; track subject.id) {
+
+      <article class="subject-card">
+
+        <!-- Card Top -->
+
+        <div class="card-top">
+
+          <div
+            class="subject-icon"
+            [class]="subject.iconClass">
+
+            {{ subject.icon }}
+
+          </div>
+
+
+          <div class="subject-information">
+
+            <h3>
+              {{ subject.name }}
+            </h3>
+
+            <p>
+              {{ subject.description }}
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="more-button"
+            aria-label="More options">
+
+            ⋮
+
+          </button>
+
+        </div>
+
+
+        <!-- Progress -->
+
+        <div class="subject-progress">
+
+          <div class="progress-header">
+
+              <span>
+                Progress
+              </span>
+
+            <strong>
+              {{ getCompletionPercentage(subject) }}%
+            </strong>
+
+          </div>
+
+
+          <div class="progress-track">
+
+            <div
+              class="progress-fill"
+              [class]="subject.iconClass"
+              [style.width.%]="getCompletionPercentage(subject)">
+            </div>
+
+          </div>
+
+
+          <span class="completion-text">
+
+              {{ subject.completedTopics }}
+              /
+              {{ subject.totalTopics }}
+              topics completed
+
+            </span>
+
+        </div>
+
+
+        <!-- Card Footer -->
+
+        <div class="card-footer">
+
+          <button
+            type="button"
+            class="view-roadmap-button"
+            (click)="viewRoadmap(subject)">
+
+            View Roadmap
+
+            <span>
+                →
+              </span>
+
+          </button>
+
+        </div>
+
+      </article>
+
+      }
+
+    </section>
+
+  </section>
+
+
+  <!-- Create Roadmap CTA -->
+
+  <section class="create-roadmap-card">
+
+    <div class="create-icon">
+      +
+    </div>
+
+
+    <div class="create-content">
+
+      <h3>
+        Don't see a subject you're learning?
+      </h3>
+
+      <p>
+        Create a new roadmap and build your personalized learning path.
+      </p>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="outline-create-button"
+      (click)="createRoadmap()">
+
+      <span>
+        +
+      </span>
+
+      Create Roadmap
+
+    </button>
+
+  </section>
+
+</div>
+
+@if (showCreateRoadmapModal) {
+
+<app-create-roadmap
+  [subjects]="roadmapSubjects"
+  (closed)="closeCreateRoadmap()"
+  (next)="selectRoadmapSubject($event)">
+</app-create-roadmap>
+
+}
+
+

@@ -15,6 +15,9 @@ export interface AddTopicData {
   subjectId: string;
   name: string;
   description: string;
+  estimatedTime: string;
+  displayOrder: number;
+  status: string;
 }
 
 @Component({
@@ -27,15 +30,23 @@ export class AddTopic {
 
   private readonly formBuilder = inject(FormBuilder);
 
-  @Input({ required: true }) subjectId = '';
+  @Input({ required: true })
+  set subjectId(value: string) {
+    this.topicForm.controls.subjectId.setValue(value);
+  }
+
   @Input({ required: true }) subjectName = '';
 
   @Output() closed = new EventEmitter<void>();
   @Output() submitted = new EventEmitter<AddTopicData>();
 
   topicForm = this.formBuilder.nonNullable.group({
+    subjectId: [{ value: '', disabled: true }, Validators.required],
     name: ['', [Validators.required, Validators.minLength(2)]],
-    description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]]
+    description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
+    estimatedTime: ['', Validators.required],
+    displayOrder: [1, [Validators.required, Validators.min(1)]],
+    status: ['Draft', Validators.required]
   });
 
   close(): void {
@@ -48,9 +59,6 @@ export class AddTopic {
       return;
     }
 
-    this.submitted.emit({
-      subjectId: this.subjectId,
-      ...this.topicForm.getRawValue()
-    });
+    this.submitted.emit(this.topicForm.getRawValue());
   }
 }

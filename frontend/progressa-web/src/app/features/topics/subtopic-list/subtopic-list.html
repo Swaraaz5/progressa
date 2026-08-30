@@ -57,54 +57,6 @@
 
   </header>
 
-
-  <section class="progress-summary">
-
-    <div class="summary-information">
-
-      <div class="summary-icon">
-        ✓
-      </div>
-
-      <div>
-
-        <span>
-          Topic Progress
-        </span>
-
-        <strong>
-          {{ completedCount }} of {{ subtopics.length }} completed
-        </strong>
-
-      </div>
-
-    </div>
-
-
-    <div class="summary-progress">
-
-      <div class="progress-header">
-
-        <span>
-          {{ completionPercentage }}%
-        </span>
-
-      </div>
-
-      <div class="progress-track">
-
-        <div
-          class="progress-fill"
-          [style.width.%]="completionPercentage">
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
   <section class="toolbar">
 
     <div class="search-wrapper">
@@ -146,25 +98,7 @@
 
     <article
       class="subtopic-card"
-      [class.completed]="subtopic.completed">
-
-      <button
-        type="button"
-        class="completion-checkbox"
-        [class.checked]="subtopic.completed"
-        (click)="toggleCompleted(subtopic, $event)"
-        [attr.aria-label]="
-              subtopic.completed
-                ? 'Mark incomplete'
-                : 'Mark completed'
-            ">
-
-        @if (subtopic.completed) {
-        ✓
-        }
-
-      </button>
-
+    >
 
       <div class="subtopic-number">
         {{ subtopic.id }}
